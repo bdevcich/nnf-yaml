@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+data:
+  nnf-dm-config.yaml: |-
+    profiles:
+      default:
+          slots: 8
+          maxSlots: -1
+          mpiCommand: --allow-run-as-root --hostfile=$HOSTFILE
+          dcpCommand: --uid=$UID --GID=$GID --progress 1 $SRC $DEST
+    dmProgressInterval: 5s
+kind: ConfigMap
+metadata:
+  name: nnf-dm-config2
+  namespace: nnf-dm-system

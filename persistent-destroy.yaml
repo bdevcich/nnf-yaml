@@ -1,0 +1,14 @@
+apiVersion: dws.cray.hpe.com/v1alpha1
+kind: Workflow
+metadata:
+  name: blake-persistent3
+  namespace: default
+spec:
+  desiredState: "Proposal"
+  dwDirectives:
+    # - "#DW destroy_persistent name=blake-persistent"
+    - "#DW destroy_persistent name=gfs2-lustre-with-containers"
+  wlmID: "5f239bd8-30db-450b-8c2c-a1a7c8631a1a"
+  jobID: 900001
+  userID: 9999
+  groupID: 999

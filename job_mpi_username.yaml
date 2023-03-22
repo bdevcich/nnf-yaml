@@ -1,0 +1,198 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blake-container
+  namespace: nnf-system
+spec:
+  clusterIP: None
+  selector:
+    cray.nnf.container.workflow1: "true"
+  # ports:
+  #   - protocol: TCP
+  #     port: 80
+  #     name: web
+  #   - protocol: TCP
+  #     port: 22
+  #     name: ssh
+---
+# apiVersion: v1
+# kind: Secret
+# metadata:
+#   name: blake-ssh-auth
+#   namespace: nnf-system
+# type: kubernetes.io/ssh-auth
+# data:
+#   ssh-privatekey: |
+#           MIIEpQIBAAKCAQEAulqb/Y ...
+#   ssh-publickey: |
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: blake-container2
+  namespace: nnf-system
+spec:
+  # backoffLimit: 0
+  # activeDeadlineSeconds: 0
+  # ttlSecondsAfterFinished: 10
+  # completions: 0
+  # parallelism: 1
+  template:
+    metadata:
+      labels:
+        cray.nnf.container.workflow1: "true"
+    spec:
+      # restartPolicy: OnFailure
+      restartPolicy: Never
+      hostname: blake-container2
+      subdomain: blake-container
+      shareProcessNamespace: true
+      containers:
+        - name: container
+          env:
+            - name: OMPI_MCA_orte_keep_fqdn_hostnames
+              value: "true"
+          image: ghcr.io/nearnodeflash/nnf-mfu:82aa3c4b6655433dacbe3294ad359161c62219c6
+          command: 
+            - /usr/sbin/sshd
+          args:
+            - -De
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["SETUID", "SETGID", "MKNOD"]
+          volumeMounts:
+            - name: ssh-auth
+              mountPath: /root/.ssh
+            # - name: kube-api-access-c5gl9
+            #   mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+            #   readOnly: true
+
+      tolerations:
+        - effect: NoSchedule
+          key: cray.nnf.node
+          operator: Equal
+          value: "true"
+      nodeSelector:
+        kubernetes.io/hostname: "kind-worker2"
+      volumes:
+        - name: ssh-auth
+          secret:
+            defaultMode: 384
+            items:
+            - key: ssh-privatekey
+              path: id_rsa
+            - key: ssh-publickey
+              path: id_rsa.pub
+            - key: ssh-publickey
+              path: authorized_keys
+            secretName: blake-ssh-secret
+        - name: nnf
+          hostPath:
+            path: /mnt/nnf
+            type: DirectoryOrCreate
+        - name: kube-api-access-c5gl9
+          projected:
+            defaultMode: 420
+            sources:
+            - serviceAccountToken:
+                expirationSeconds: 3607
+                path: token
+            - configMap:
+                items:
+                - key: ca.crt
+                  path: ca.crt
+                name: kube-root-ca.crt
+            - downwardAPI:
+                items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace
+
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: blake-container3
+  namespace: nnf-system
+spec:
+  # backoffLimit: 0
+  # activeDeadlineSeconds: 0
+  # ttlSecondsAfterFinished: 10
+  # completions: 0
+  # parallelism: 1
+  template:
+    metadata:
+      labels:
+        cray.nnf.container.workflow1: "true"
+    spec:
+      # restartPolicy: OnFailure
+      restartPolicy: Never
+      shareProcessNamespace: true
+      hostname: blake-container3
+      subdomain: blake-container
+      containers:
+        - name: container
+          image: ghcr.io/nearnodeflash/nnf-mfu:82aa3c4b6655433dacbe3294ad359161c62219c6
+          env:
+            - name: OMPI_MCA_orte_keep_fqdn_hostnames
+              value: "true"
+            - name: MPIHOSTS
+              value: ""
+          command: 
+            - /usr/sbin/sshd
+          args:
+            - -De
+          securityContext:
+            privileged: true
+            capabilities:
+              add: ["SETUID", "SETGID", "MKNOD"]
+          volumeMounts:
+            - name: ssh-auth
+              mountPath: /root/.ssh
+            # - name: kube-api-access-c5gl9
+            #   mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+            #   readOnly: true
+      tolerations:
+        - effect: NoSchedule
+          key: cray.nnf.node
+          operator: Equal
+          value: "true"
+      nodeSelector:
+        kubernetes.io/hostname: "kind-worker3"
+      volumes:
+        - name: ssh-auth
+          secret:
+            defaultMode: 384
+            items:
+            - key: ssh-privatekey
+              path: id_rsa
+            - key: ssh-publickey
+              path: id_rsa.pub
+            - key: ssh-publickey
+              path: authorized_keys
+            secretName: blake-ssh-secret
+        - name: nnf
+          hostPath:
+            path: /mnt/nnf
+            type: DirectoryOrCreate
+        - name: kube-api-access-c5gl9
+          projected:
+            defaultMode: 420
+            sources:
+            - serviceAccountToken:
+                expirationSeconds: 3607
+                path: token
+            - configMap:
+                items:
+                - key: ca.crt
+                  path: ca.crt
+                name: kube-root-ca.crt
+            - downwardAPI:
+                items:
+                - fieldRef:
+                    apiVersion: v1
+                    fieldPath: metadata.namespace
+                  path: namespace

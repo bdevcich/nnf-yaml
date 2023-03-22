@@ -1,0 +1,16 @@
+spec:
+  allocationSets:
+    - allocationSize: 50000000000
+      label: ost
+      storage:
+        - allocationCount: 1
+          name: kind-worker2
+        - allocationCount: 1
+          name: kind-worker3
+    - allocationSize: 50000000000
+      label: mgtmdt
+      storage:
+        - allocationCount: 1
+          name: kind-worker2
+        - allocationCount: 1
+          name: kind-worker3

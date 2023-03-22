@@ -1,0 +1,13 @@
+apiVersion: dws.cray.hpe.com/v1alpha1
+kind: Workflow
+metadata:
+  name: blake-persistent2
+  namespace: default
+spec:
+  desiredState: "Proposal"
+  dwDirectives:
+    - "#DW persistentdw name=blake-persistent"
+  wlmID: "5f239bd8-30db-450b-8c2c-a1a7c8631a1a"
+  jobID: 900001
+  userID: 1002
+  groupID: 999

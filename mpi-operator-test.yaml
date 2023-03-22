@@ -1,0 +1,103 @@
+apiVersion: kubeflow.org/v2beta1
+kind: MPIJob
+metadata:
+  name: my-container-workflow
+spec:
+  slotsPerWorker: 1
+  sshAuthMountPath: /home/mpiuser/.ssh
+  runPolicy:
+    cleanPodPolicy: Running
+  mpiReplicaSpecs:
+    Launcher:
+      replicas: 1
+      template:
+        spec:
+          nodeSelector:
+            kubernetes.io/hostname: kind-worker2
+          tolerations:
+            - effect: NoSchedule
+              key: cray.nnf.node
+              operator: Equal
+              value: "true"
+          securityContext:
+            fsGroup: 1005
+          volumes:
+            - name: passwd
+              emptyDir: {}
+            - name: foo-local-storage
+              hostPath: 
+                path: "/mnt/nnf/06020ad9-28d4-451b-ab27-00eda8f8ecb6-0"
+                type: Directory
+          initContainers:
+            - command:
+              - /bin/sh
+              - -c
+              - |
+                # tie the mpiuser to the UID/GID
+                sed -i '/^mpiuser/d' /etc/passwd
+                echo "mpiuser:x:1041:1005::/home/mpiuser:/bin/sh" >> /etc/passwd
+                cp /etc/passwd /config/
+                exit 0
+              image: ghcr.io/nearnodeflash/nnf-container-example:latest
+              name: container-mpi-init
+              volumeMounts:
+                - name: passwd
+                  mountPath: "/config"
+          containers:
+            - image: ghcr.io/nearnodeflash/nnf-mfu:latest
+              name: my-container-workflow
+              env:
+                - name: DW_JOB_foo_local_storage
+                  value: /mnt/nnf/06020ad9-28d4-451b-ab27-00eda8f8ecb6-0
+              command:
+                - mpirun
+                - --allow-run-as-root
+                - -np
+                - "2"
+                - dcmp
+                - "$(DW_JOB_foo_local_storage)/0"
+                - "$(DW_JOB_foo_local_storage)/1"
+                # - /home/mpirun/.bashrc
+                # - /home/mpirun/.profile
+              volumeMounts:
+              - name: passwd
+                mountPath: "/etc/passwd"
+                subPath: "passwd"
+              - name: foo-local-storage
+                mountPath: "/mnt/nnf/06020ad9-28d4-451b-ab27-00eda8f8ecb6-0"
+              securityContext:
+                runAsNonRoot: true
+                runAsUser: 1041
+                runAsGroup: 1005
+    Worker:
+      replicas: 2
+      template:
+        spec:
+          affinity:
+            nodeAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                nodeSelectorTerms:
+                  - matchExpressions:
+                      - key: kubernetes.io/hostname
+                        operator: In
+                        values:
+                          - kind-worker2
+                          - kind-worker3
+          tolerations:
+            - effect: NoSchedule
+              key: cray.nnf.node
+              operator: Equal
+              value: "true"
+          volumes:
+            - name: foo-local-storage
+              hostPath: 
+                path: "/mnt/nnf/06020ad9-28d4-451b-ab27-00eda8f8ecb6-0"
+                type: Directory
+          securityContext:
+            fsGroup: 1005
+          containers:
+            - image: ghcr.io/nearnodeflash/nnf-mfu:latest
+              name: my-container-workflow
+              volumeMounts:
+              - name: foo-local-storage
+                mountPath: "/mnt/nnf/06020ad9-28d4-451b-ab27-00eda8f8ecb6-0"

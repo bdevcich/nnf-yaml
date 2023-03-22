@@ -1,0 +1,7 @@
+data:
+ - name: "compute-01"
+ - name: "compute-02"
+ - name: "compute-03"
+ - name: "compute-04"
+# - name: "compute-node-3"
+#- name: "compute-node-5"

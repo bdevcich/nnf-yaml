@@ -1,0 +1,23 @@
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: NnfDataMovement
+metadata:
+  finalizers:
+    - dm.cray.hpe.com
+  labels:
+    dm.cray.hpe.com/initiator: compute-node-3
+    dws.cray.hpe.com/owner.kind: NnfDataMovement
+    dws.cray.hpe.com/owner.name: gfs2
+    dws.cray.hpe.com/owner.namespace: default
+    nnf.cray.hpe.com/teardown_state: post_run
+  name: blake-test-dm
+  namespace: rabbit-node-1
+spec:
+  cancel: false
+  destination:
+    path: /lus/global
+    storageReference: {}
+  source:
+    path: /mnt/nnf/1229/job/gfs2/0/blake-test-40GB
+    storageReference: {}
+  userId: 1000
+  groupId: 1000

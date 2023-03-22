@@ -1,0 +1,18 @@
+apiVersion: dws.cray.hpe.com/v1alpha1
+kind: Workflow
+metadata:
+  name: blake-container
+  namespace: default
+spec:
+  desiredState: "Proposal"
+  dwDirectives:
+    - "#DW jobdw name=blake-gfs2 type=gfs2 capacity=50GB"
+    # - "#DW persistentdw name=blake-persistent"
+    - "#DW container name=blake-container profile=example-forever \
+       DW_JOB_foo-local-storage=blake-gfs2"
+       # DW_PERSISTENT_foo-persistent-storage=blake-persistent"
+  wlmID: "5f239bd8-30db-450b-8c2c-a1a7c8631a1a"
+  jobID: 900001
+  userID: 1041
+  groupID: 999
+

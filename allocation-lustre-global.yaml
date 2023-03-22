@@ -1,0 +1,14 @@
+spec:
+  allocationSets:
+    - allocationSize: 50000000000
+      label: ost
+      storage:
+        - allocationCount: 1
+          # name: kind-worker2
+          name: rabbit-node-2
+    - allocationSize: 50000000000
+      label: mgtmdt
+      storage:
+        - allocationCount: 1
+          # name: kind-worker2
+          name: rabbit-node-2

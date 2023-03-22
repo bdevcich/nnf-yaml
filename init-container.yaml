@@ -1,0 +1,176 @@
+# create secret generic blake-ssh-secret -n nnf-system --from-file=ssh-privatekey=./id_rsa --from-file=ssh-publickey=./id_rsa.pub
+# create secret generic blake-ssh-secret -n default  --from-file=ssh-privatekey=./id_rsa --from-file=ssh-publickey=./id_rsa.pub
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: workflow1
+  namespace: default
+spec:
+  clusterIP: None
+  selector:
+    cray.nnf.container.workflow1: "true"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: container-mpi-kind-worker2
+  namespace: default
+spec:
+  template:
+    metadata:
+      labels:
+        cray.nnf.container.workflow1: "true"
+    spec:
+      securityContext:
+        fsGroup: 1005
+      volumes:
+        - name: passwd
+          emptyDir: {}
+        - name: ssh-auth
+          secret:
+            defaultMode: 384
+            items:
+            - key: ssh-privatekey
+              path: id_rsa
+            - key: ssh-publickey
+              path: id_rsa.pub
+            - key: ssh-publickey
+              path: authorized_keys
+            secretName: blake-ssh-secret
+      initContainers:
+        - command:
+          - /bin/sh
+          - -c
+          - |
+            sed -i '/^mpiuser/d' /etc/passwd
+            echo "mpiuser:x:1041:1005::/home/mpiuser:/bin/sh" >> /etc/passwd
+            cp /etc/passwd /config/
+            exit 0
+          image: ghcr.io/nearnodeflash/nnf-container-example:latest
+          name: container-mpi-init
+          volumeMounts:
+            - name: passwd
+              mountPath: "/config"
+      containers:
+      - command:
+        - /bin/sh
+        - -c
+        - sleep 1000 && exit 0
+        image: ghcr.io/nearnodeflash/nnf-container-example:latest
+        name: container-mpi
+        volumeMounts:
+          - name: passwd
+            mountPath: "/etc/passwd"
+            subPath: "passwd"
+          - name: ssh-auth
+            mountPath: /home/mpiuser/.ssh
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1041
+          runAsGroup: 1005
+          capabilities:
+            add: ["SETUID", "SETGID", "MKNOD"]
+        startupProbe:
+          exec:
+            command:
+            - service
+            - ssh
+            - status
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      hostname: kind-worker2
+      nodeSelector:
+        kubernetes.io/hostname: kind-worker2
+      restartPolicy: Never
+      subdomain: workflow1
+      tolerations:
+      - effect: NoSchedule
+        key: cray.nnf.node
+        operator: Equal
+        value: "true"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: container-mpi-kind-worker3
+  namespace: default
+spec:
+  template:
+    metadata:
+      labels:
+        cray.nnf.container.workflow1: "true"
+    spec:
+      securityContext:
+        fsGroup: 1005
+      volumes:
+        - name: passwd
+          emptyDir: {}
+        - name: ssh-auth
+          secret:
+            defaultMode: 384
+            items:
+            - key: ssh-privatekey
+              path: id_rsa
+            - key: ssh-publickey
+              path: id_rsa.pub
+            - key: ssh-publickey
+              path: authorized_keys
+            secretName: blake-ssh-secret
+      initContainers:
+        - command:
+          - /bin/sh
+          - -c
+          - |
+            sed -i '/^mpiuser/d' /etc/passwd
+            echo "mpiuser:x:1041:1005::/home/mpiuser:/bin/sh" >> /etc/passwd
+            echo "container-mpi:x:1041:1005::/home/container-mpi:/bin/sh" >> /etc/passwd
+            cp /etc/passwd /config/
+            exit 0
+          image: ghcr.io/nearnodeflash/nnf-container-example:latest
+          name: container-mpi-init
+          volumeMounts:
+            - name: passwd
+              mountPath: "/config"
+      containers:
+      - command:
+        - /bin/sh
+        - -c
+        - |
+          /usr/sbin/sshd -De &
+          sleep 1000 && exit 0
+        image: ghcr.io/nearnodeflash/nnf-container-example:latest
+        name: container-mpi
+        env:
+          - name: OMPI_MCA_orte_keep_fqdn_hostnames
+            value: "true"
+        volumeMounts:
+          - name: passwd
+            mountPath: "/etc/passwd"
+            subPath: "passwd"
+          - name: ssh-auth
+            mountPath: /home/mpiuser/.ssh
+        securityContext:
+          # runAsNonRoot: true
+          # runAsUser: 1041
+          # runAsGroup: 1005
+          capabilities:
+            add: ["SETUID", "SETGID", "MKNOD"]
+        startupProbe:
+          exec:
+            command:
+            - service
+            - ssh
+            - status
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      hostname: kind-worker3
+      nodeSelector:
+        kubernetes.io/hostname: kind-worker3
+      restartPolicy: Never
+      subdomain: workflow1
+      tolerations:
+      - effect: NoSchedule
+        key: cray.nnf.node
+        operator: Equal
+        value: "true"

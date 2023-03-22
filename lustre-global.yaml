@@ -1,0 +1,13 @@
+apiVersion: dws.cray.hpe.com/v1alpha1
+kind: Workflow
+metadata:
+  name: nnf08-global-lustre
+  namespace: default
+spec:
+  desiredState: "Proposal"
+  dwDirectives:
+    - "#DW jobdw type=lustre capacity=50GB name=global"
+  wlmID: "5f239bd8-30db-450b-8c2c-a1a7c8631a1a"
+  jobID: 800001
+  userID: 0
+  groupID: 0

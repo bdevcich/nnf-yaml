@@ -1,0 +1,147 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: blake-container
+  namespace: nnf-system
+spec:
+  clusterIP: None
+  selector:
+    cray.nnf.container.workflow1: "true"
+  # ports:
+  #   - protocol: TCP
+  #     port: 80
+  #     targetPort: 9376
+---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: blake-nodeport-worker2
+#   namespace: nnf-system
+# spec:
+#   type: NodePort
+#   selector:
+#     job-name: blake-worker2
+#   ports:
+#       # By default and for convenience, the `targetPort` is set to the same value as the `port` field.
+#     - port: 9376
+#       # By default and for convenience, the Kubernetes control plane will allocate a port from a range (default: 30000-32767)
+#       # nodePort: 30007
+# ---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: blake-worker2
+  namespace: nnf-system
+spec:
+  # backoffLimit: 0
+  # activeDeadlineSeconds: 0
+  # ttlSecondsAfterFinished: 10
+  # completions: 0
+  # parallelism: 1
+  template:
+    metadata:
+      labels:
+        cray.nnf.container.workflow1: "true"
+    spec:
+      # restartPolicy: OnFailure
+      restartPolicy: Never
+      hostname: blake-worker2
+      subdomain: blake-container
+      containers:
+      - name: blake
+        image: python:latest
+        env:
+        - name: SCR_EXIT
+          value: "0"
+        command:
+          # - /bin/sh
+          # - -c
+          # - |
+          #   echo "starting SCR..."
+          #   sleep 300
+          #   x=$(($RANDOM % 2))
+          #   echo "exiting SCR: $x"
+          #   # exit $x
+          #   exit 1
+          - python3
+        args:
+          - -m
+          - http.server
+          - "9376"
+        ports:
+          - name: test 
+            hostPort: 9376
+            containerPort: 9376
+      tolerations:
+        - effect: NoSchedule
+          key: cray.nnf.node
+          operator: Equal
+          value: "true"
+      nodeSelector:
+        kubernetes.io/hostname: "kind-worker2"
+        # kubernetes.io/hostname: "rabbit-node-1"
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: blake-worker3
+  namespace: nnf-system
+spec:
+  # backoffLimit: 0
+  # activeDeadlineSeconds: 0
+  # ttlSecondsAfterFinished: 10
+  # completions: 0
+  # parallelism: 1
+  template:
+    metadata:
+      labels:
+        cray.nnf.container.workflow1: "true"
+    spec:
+      # restartPolicy: OnFailure
+      restartPolicy: Never
+      hostname: blake-worker3
+      subdomain: blake-container
+      containers:
+      - name: blake
+        image: python:latest
+        env:
+        - name: SCR_EXIT
+          value: "0"
+        command:
+          # - /bin/sh
+          # - -c
+          # - |
+          #   echo "starting SCR..."
+          #   sleep 300
+          #   x=$(($RANDOM % 2))
+          #   echo "exiting SCR: $x"
+          #   # exit $x
+          #   exit 1
+          - python3
+        args:
+          - -m
+          - http.server
+          - "9376"
+        ports:
+          - name: test 
+            hostPort: 9376
+            containerPort: 9376
+        #   - wget
+        # args:
+        #   - "-O-"
+        #   - blake-container-service.nnf-system.svc.cluster.local
+        volumeMounts:
+          - name: "test"
+            mountPath: "/mnt/test"
+      tolerations:
+        - effect: NoSchedule
+          key: cray.nnf.node
+          operator: Equal
+          value: "true"
+      nodeSelector:
+        kubernetes.io/hostname: "kind-worker3"
+      volumes:
+        - name: "test"
+          hostPath:
+            path: "/tmp/123"
+            type: Directory

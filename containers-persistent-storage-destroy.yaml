@@ -1,0 +1,14 @@
+apiVersion: dws.cray.hpe.com/v1alpha1
+kind: Workflow
+metadata:
+  name: containers-persistent-storage-destroy
+  namespace: default
+spec:
+  desiredState: Proposal
+  dwDirectives:
+  - '#DW destroy_persistent name=containers-persistent-storage'
+  groupID: 0
+  hurry: false
+  jobID: 2
+  userID: 0
+  wlmID: "2"

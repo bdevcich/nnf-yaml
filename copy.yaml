@@ -1,0 +1,15 @@
+apiVersion: dws.cray.hpe.com/v1alpha1
+kind: Workflow
+metadata:
+  name: blake-gfs2-copy-in
+  namespace: default
+spec:
+  desiredState: "Proposal"
+  dwDirectives:
+    - "#DW jobdw type=gfs2 capacity=1GB name=blake-gfs2-src"
+    - "#DW jobdw type=gfs2 capacity=1GB name=blake-gfs2-dest"
+    - "#DW copy_in source=$DW_JOB_blake-gfs2-src destination=$DW_JOB_blake-gfs2-dest"
+  wlmID: "5f239bd8-30db-450b-8c2c-a1a7c8631a1a"
+  jobID: 900002
+  userID: 1041
+  groupID: 999

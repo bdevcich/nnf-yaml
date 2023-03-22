@@ -1,0 +1,23 @@
+apiVersion: cray.hpe.com/v1alpha1
+kind: LustreFileSystem
+metadata:
+  name: lustrefilesystem-global
+  namespace: default
+spec:
+  # TODO: This needs to match the fileSystemName from nnfstorage
+  name: zd144d53
+  mountRoot: /lus/global
+  namespaces:
+    nnf-dm-system:
+      modes:
+        - ReadWriteMany
+  # rabbit-node-0
+  # mgsNids: 10.1.1.2@tcp
+  # rabbit-node-1
+  # mgsNids: 10.1.1.5@tcp
+  # rabbit-node-2
+  mgsNids: 10.1.1.8@tcp
+  # kind-worker2
+  # mgsNids: 172.18.0.4@tcp
+  # kind-worker3
+  # mgsNids: 172.18.0.5@tcp
