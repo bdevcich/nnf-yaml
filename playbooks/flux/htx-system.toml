@@ -37,16 +37,29 @@ tcp_user_timeout = "2m"
 norestrict = true
 exclude = "htx-lustre"
 
-#[[resource.config]]
-#hosts = "rabbit-compute[2-5]"
-#cores = "0-7"
-#gpus = "0"
+[[resource.config]]
+hosts = "rabbit-compute-[2,4]"
+properties = ["one"]
+cores = "0-63"
 
-#[[resource.config]]
-#hosts = "test16"
-#cores = "0-63"
-#gpus = "0-1"
-#properties = ["fatnode"]
+[[resource.config]]
+hosts = "rabbit-compute-[3,5]"
+properties = ["two"]
+cores = "0-63"
+
+[[resource.config]]
+hosts = "htx-lustre"
+properties = ["exclude"]
+cores = "0-63"
+
+[queues.one]
+requires = ["one"]
+
+[queues.two]
+requires = ["two"]
+
+[queues.exclude]
+requires = ["exclude"]
 
 # Store the kvs root hash in sqlite periodically in case of broker crash.
 # Recommend offline KVS garbage collection when commit threshold is reached.
@@ -65,10 +78,10 @@ plugins = [
   { load = "dws-jobtap.so" }
 ]
 
-
 # Jobs submitted without duration get a very short one
 [policy.jobspec.defaults.system]
 duration = "1m"
+queue = "one"
 
 # Jobs that explicitly request more than the following limits are rejected
 [policy.limits]
