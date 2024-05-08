@@ -1,0 +1,11 @@
+[TOSS]
+name=TOSS (Local)
+baseurl=file:///mnt/toss-upgrade
+enabled=1
+gpgcheck=0
+
+[TOSSLustre]
+name=TOSS Lustre (Remote)
+baseurl=http://preserve.eag.rdlabs.hpecorp.net/TOSS/4.7/current-lustre_2.15/x86_64/
+enabled=1
+gpgcheck=0

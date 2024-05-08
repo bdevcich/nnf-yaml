@@ -1,0 +1,31 @@
+---
+- name: Add mpiuser user/group
+  hosts: htx-rabbits,htx-computes
+  remote_user: root
+
+  tasks:
+    - name: Remove existing mpiuser group
+      ansible.builtin.group:
+        name: mpiuser
+        state: "absent"
+        force: true
+    - name: Add mpiuser group
+      ansible.builtin.group:
+        name: mpiuser
+        gid: 1051
+    - name: Remove existing mpiuser user
+      ansible.builtin.user:
+        name: mpiuser
+        state: "absent"
+        force: true
+    - name: Add mpiuser user
+      ansible.builtin.user:
+        name: mpiuser
+        uid: 1050
+        group: mpiuser
+    - name: Ensure home dir permissions
+      ansible.builtin.file:
+        path: /home/mpiuser
+        recurse: true
+        group: mpiuser
+        owner: mpiuser

@@ -5,10 +5,12 @@ spec:
       storage:
         - allocationCount: 1
           # name: kind-worker2
-          name: rabbit-node-2
+          name: rabbit-node-1
     - allocationSize: 50000000000
-      label: mgtmdt
+      # label: mgtmdt
+      # for external mgs
+      label: mdt
       storage:
         - allocationCount: 1
           # name: kind-worker2
-          name: rabbit-node-2
+          name: rabbit-node-1

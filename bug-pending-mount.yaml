@@ -1,0 +1,14 @@
+apiVersion: dataworkflowservices.github.io/v1alpha2
+kind: Workflow
+metadata:
+  name: fluxjob-456407384064
+  namespace: default
+spec:
+  desiredState: Proposal
+  dwDirectives:
+    - '#DW jobdw capacity=10GiB type=xfs name=project1'
+  groupID: 31193
+  hurry: false
+  jobID: fCzNA9Hh
+  userID: 31193
+  wlmID: flux

@@ -1,22 +1,27 @@
-apiVersion: cray.hpe.com/v1alpha1
+apiVersion: lus.cray.hpe.com/v1alpha1
 kind: LustreFileSystem
 metadata:
-  name: lustrefilesystem-global
+  name: blake-lustre-global
   namespace: default
 spec:
   # TODO: This needs to match the fileSystemName from nnfstorage
-  name: zd144d53
+  name: za152010
   mountRoot: /lus/global
   namespaces:
-    nnf-dm-system:
+    # nnf-dm-system:
+    #   modes:
+    #     - ReadWriteMany
+    default:
       modes:
         - ReadWriteMany
   # rabbit-node-0
   # mgsNids: 10.1.1.2@tcp
   # rabbit-node-1
   # mgsNids: 10.1.1.5@tcp
+  # campute-node-2 external mgs
+  mgsNids: 10.1.1.23@tcp
   # rabbit-node-2
-  mgsNids: 10.1.1.8@tcp
+  # mgsNids: 10.1.1.8@tcp
   # kind-worker2
   # mgsNids: 172.18.0.4@tcp
   # kind-worker3

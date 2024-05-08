@@ -1,0 +1,20 @@
+---
+- name: Install test tools on rabbits
+  hosts: htx-rabbits
+  remote_user: root
+  environment:
+    http_proxy: http://hpeproxy.its.hpecorp.net:80/
+    https_proxy: http://hpeproxy.its.hpecorp.net:443/
+    ftp_proxy: http://hpeproxy.its.hpecorp.net:80/
+    no_proxy: localhost,127.0.0.1,.milp.rdlabs.hpecorp.net,.chf.rdlabs.hpecorp.net,.eag.rdlabs.hpecorp.net
+  vars:
+    core_dump_dir: /mnt/nnf/cores
+
+  tasks:
+    - name: Create core dump directory
+      ansible.builtin.file:
+        path: '{{core_dump_dir}}'
+        state: directory
+        mode: '0755'
+    - name: Set core dump pattern
+      ansible.builtin.shell: 'echo "{{core_dump_dir}}/core.%h.%p.%u.%g.%s.%t" > /proc/sys/kernel/core_pattern'

@@ -1,0 +1,193 @@
+apiVersion: v1
+items:
+- apiVersion: nnf.cray.hpe.com/v1alpha1
+  kind: NnfDataMovement
+  metadata:
+    creationTimestamp: "2024-03-11T16:59:44Z"
+    finalizers:
+    - dm.cray.hpe.com
+    generation: 1
+    labels:
+      dataworkflowservices.github.io/owner.kind: Workflow
+      dataworkflowservices.github.io/owner.name: fluxjob-36168613102616576
+      dataworkflowservices.github.io/owner.namespace: default
+      dataworkflowservices.github.io/owner.uid: 5686e3b8-bfaf-4567-922f-3e5d23cfe946
+      dataworkflowservices.github.io/workflow.name: fluxjob-36168613102616576
+      dataworkflowservices.github.io/workflow.namespace: default
+      dataworkflowservices.github.io/workflow.uid: 5686e3b8-bfaf-4567-922f-3e5d23cfe946
+      nnf.cray.hpe.com/directive_index: "1"
+      nnf.cray.hpe.com/teardown_state: DataOut
+    name: fluxjob-36168613102616576-1-1
+    namespace: rabbit-node-1
+    resourceVersion: "170632385"
+    uid: 54cacd06-b507-4c37-b567-8c4da109a347
+  spec:
+    cancel: false
+    destination:
+      path: /lus/global/blake
+      storageReference:
+        kind: LustreFileSystem
+        name: lushtx
+        namespace: default
+    groupId: 100
+    profile: no-xattr
+    source:
+      path: /mnt/nnf/5686e3b8-bfaf-4567-922f-3e5d23cfe946-0/rabbit-node-1-1
+      storageReference:
+        kind: NnfStorage
+        name: fluxjob-36168613102616576-0
+        namespace: default
+    userId: 1060
+  status:
+    commandStatus:
+      command: /bin/bash -c ulimit -n 2048 && mpirun --allow-run-as-root --hostfile
+        /tmp/fluxjob-36168613102616576-1-1/hostfile dcp --progress 1 --xattrs none
+        --uid 1060 --gid 100 /mnt/nnf/5686e3b8-bfaf-4567-922f-3e5d23cfe946-0/rabbit-node-1-1
+        /lus/global/blake
+      elapsedTime: 0s
+    startTime: "2024-03-11T16:59:44.355770Z"
+    state: Running
+- apiVersion: nnf.cray.hpe.com/v1alpha1
+  kind: NnfDataMovement
+  metadata:
+    creationTimestamp: "2024-03-11T16:59:44Z"
+    finalizers:
+    - dm.cray.hpe.com
+    generation: 1
+    labels:
+      dataworkflowservices.github.io/owner.kind: Workflow
+      dataworkflowservices.github.io/owner.name: fluxjob-36168613102616576
+      dataworkflowservices.github.io/owner.namespace: default
+      dataworkflowservices.github.io/owner.uid: 5686e3b8-bfaf-4567-922f-3e5d23cfe946
+      dataworkflowservices.github.io/workflow.name: fluxjob-36168613102616576
+      dataworkflowservices.github.io/workflow.namespace: default
+      dataworkflowservices.github.io/workflow.uid: 5686e3b8-bfaf-4567-922f-3e5d23cfe946
+      nnf.cray.hpe.com/directive_index: "1"
+      nnf.cray.hpe.com/teardown_state: DataOut
+    name: fluxjob-36168613102616576-1-0
+    namespace: rabbit-node-1
+    resourceVersion: "170632386"
+    uid: 6864a995-f7f7-47ef-8f8f-525af0ef7b22
+  spec:
+    cancel: false
+    destination:
+      path: /lus/global/blake
+      storageReference:
+        kind: LustreFileSystem
+        name: lushtx
+        namespace: default
+    groupId: 100
+    profile: no-xattr
+    source:
+      path: /mnt/nnf/5686e3b8-bfaf-4567-922f-3e5d23cfe946-0/rabbit-node-1-0
+      storageReference:
+        kind: NnfStorage
+        name: fluxjob-36168613102616576-0
+        namespace: default
+    userId: 1060
+  status:
+    commandStatus:
+      command: /bin/bash -c ulimit -n 2048 && mpirun --allow-run-as-root --hostfile
+        /tmp/fluxjob-36168613102616576-1-0/hostfile dcp --progress 1 --xattrs none
+        --uid 1060 --gid 100 /mnt/nnf/5686e3b8-bfaf-4567-922f-3e5d23cfe946-0/rabbit-node-1-0
+        /lus/global/blake
+      elapsedTime: 0s
+    startTime: "2024-03-11T16:59:44.355808Z"
+    state: Running
+- apiVersion: nnf.cray.hpe.com/v1alpha1
+  kind: NnfDataMovement
+  metadata:
+    creationTimestamp: "2024-03-11T16:59:44Z"
+    finalizers:
+    - dm.cray.hpe.com
+    generation: 1
+    labels:
+      dataworkflowservices.github.io/owner.kind: Workflow
+      dataworkflowservices.github.io/owner.name: fluxjob-36168613102616576
+      dataworkflowservices.github.io/owner.namespace: default
+      dataworkflowservices.github.io/owner.uid: 5686e3b8-bfaf-4567-922f-3e5d23cfe946
+      dataworkflowservices.github.io/workflow.name: fluxjob-36168613102616576
+      dataworkflowservices.github.io/workflow.namespace: default
+      dataworkflowservices.github.io/workflow.uid: 5686e3b8-bfaf-4567-922f-3e5d23cfe946
+      nnf.cray.hpe.com/directive_index: "1"
+      nnf.cray.hpe.com/teardown_state: DataOut
+    name: fluxjob-36168613102616576-1-0
+    namespace: rabbit-node-2
+    resourceVersion: "170632387"
+    uid: 726c5ca9-39f4-474d-8dd2-064287e3a59e
+  spec:
+    cancel: false
+    destination:
+      path: /lus/global/blake
+      storageReference:
+        kind: LustreFileSystem
+        name: lushtx
+        namespace: default
+    groupId: 100
+    profile: no-xattr
+    source:
+      path: /mnt/nnf/5686e3b8-bfaf-4567-922f-3e5d23cfe946-0/rabbit-node-2-0
+      storageReference:
+        kind: NnfStorage
+        name: fluxjob-36168613102616576-0
+        namespace: default
+    userId: 1060
+  status:
+    commandStatus:
+      command: /bin/bash -c ulimit -n 2048 && mpirun --allow-run-as-root --hostfile
+        /tmp/fluxjob-36168613102616576-1-0/hostfile dcp --progress 1 --xattrs none
+        --uid 1060 --gid 100 /mnt/nnf/5686e3b8-bfaf-4567-922f-3e5d23cfe946-0/rabbit-node-2-0
+        /lus/global/blake
+      elapsedTime: 0s
+    startTime: "2024-03-11T16:59:44.361366Z"
+    state: Running
+- apiVersion: nnf.cray.hpe.com/v1alpha1
+  kind: NnfDataMovement
+  metadata:
+    creationTimestamp: "2024-03-11T16:59:44Z"
+    finalizers:
+    - dm.cray.hpe.com
+    generation: 1
+    labels:
+      dataworkflowservices.github.io/owner.kind: Workflow
+      dataworkflowservices.github.io/owner.name: fluxjob-36168613102616576
+      dataworkflowservices.github.io/owner.namespace: default
+      dataworkflowservices.github.io/owner.uid: 5686e3b8-bfaf-4567-922f-3e5d23cfe946
+      dataworkflowservices.github.io/workflow.name: fluxjob-36168613102616576
+      dataworkflowservices.github.io/workflow.namespace: default
+      dataworkflowservices.github.io/workflow.uid: 5686e3b8-bfaf-4567-922f-3e5d23cfe946
+      nnf.cray.hpe.com/directive_index: "1"
+      nnf.cray.hpe.com/teardown_state: DataOut
+    name: fluxjob-36168613102616576-1-1
+    namespace: rabbit-node-2
+    resourceVersion: "170632389"
+    uid: 7c2e69b0-f9b8-4ee9-b77e-1021d641eeca
+  spec:
+    cancel: false
+    destination:
+      path: /lus/global/blake
+      storageReference:
+        kind: LustreFileSystem
+        name: lushtx
+        namespace: default
+    groupId: 100
+    profile: no-xattr
+    source:
+      path: /mnt/nnf/5686e3b8-bfaf-4567-922f-3e5d23cfe946-0/rabbit-node-2-1
+      storageReference:
+        kind: NnfStorage
+        name: fluxjob-36168613102616576-0
+        namespace: default
+    userId: 1060
+  status:
+    commandStatus:
+      command: /bin/bash -c ulimit -n 2048 && mpirun --allow-run-as-root --hostfile
+        /tmp/fluxjob-36168613102616576-1-1/hostfile dcp --progress 1 --xattrs none
+        --uid 1060 --gid 100 /mnt/nnf/5686e3b8-bfaf-4567-922f-3e5d23cfe946-0/rabbit-node-2-1
+        /lus/global/blake
+      elapsedTime: 0s
+    startTime: "2024-03-11T16:59:44.365861Z"
+    state: Running
+kind: List
+metadata:
+  resourceVersion: ""

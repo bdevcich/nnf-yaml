@@ -1,0 +1,33 @@
+apiVersion: nnf.cray.hpe.com/v1alpha1
+data:
+  mpiSpec:
+    mpiReplicaSpecs:
+      Launcher:
+        template:
+          spec:
+            containers:
+            - command:
+              - /bin/bash
+              - -c
+              - mpirun hostname >> $(DW_GLOBAL_foo_global_lustre)/mpiuser/testfile
+              image: ghcr.io/nearnodeflash/nnf-mfu:0.0.1
+              name: example-mpi
+      Worker:
+        template:
+          spec:
+            containers:
+            - image: ghcr.io/nearnodeflash/nnf-mfu:0.0.1
+              name: example-mpi
+  retryLimit: 6
+  storages:
+  - name: DW_JOB_foo_local_storage
+    optional: false
+  - name: DW_PERSISTENT_foo_persistent_storage
+    optional: true
+  - name: DW_GLOBAL_foo_global_lustre
+    optional: true
+    pvcMode: ReadWriteMany
+kind: NnfContainerProfile
+metadata:
+  name: blake-pvcmode-test
+  namespace: nnf-system

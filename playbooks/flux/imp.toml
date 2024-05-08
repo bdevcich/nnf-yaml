@@ -1,0 +1,8 @@
+# Only allow access to the IMP exec method by the 'flux' user.
+# Only allow the installed version of flux-shell(1) to be executed.
+[exec]
+allowed-users = [ "flux" ]
+allowed-shells = [ "/usr/libexec/flux/flux-shell" ]
+
+# Enable the "flux" PAM stack (requires PAM configuration file)
+pam-support = true

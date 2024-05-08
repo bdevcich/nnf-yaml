@@ -1,0 +1,6 @@
+# Job requests should be valid for 2 weeks
+# Use munge as the job request signing mechanism
+[sign]
+max-ttl = 1209600  # 2 weeks
+default-type = "munge"
+allowed-types = [ "munge" ]

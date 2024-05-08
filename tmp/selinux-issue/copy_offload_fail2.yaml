@@ -1,0 +1,393 @@
+apiVersion: v1
+items:
+- apiVersion: nnf.cray.hpe.com/v1alpha1
+  kind: NnfDataMovement
+  metadata:
+    creationTimestamp: "2023-11-13T21:57:15Z"
+    finalizers:
+    - dm.cray.hpe.com
+    generateName: nnf-dm-node-
+    generation: 1
+    labels:
+      dataworkflowservices.github.io/owner.kind: NnfDataMovement
+      dataworkflowservices.github.io/owner.name: blake-gfs2
+      dataworkflowservices.github.io/owner.namespace: default
+      dm.cray.hpe.com/initiator: compute-node-5
+      nnf.cray.hpe.com/teardown_state: PostRun
+    name: nnf-dm-node-zclmr
+    namespace: rabbit-node-2
+    resourceVersion: "139380433"
+    uid: dc1d6b0c-2c72-42f2-b17c-c1a61f8d6b3c
+  spec:
+    cancel: false
+    destination:
+      path: /lus/global/blake/
+      storageReference: {}
+    groupId: 1051
+    source:
+      path: /mnt/nnf/78bcd1bd-334f-4ca3-86eb-700cba268102-0/1/test.blake
+      storageReference: {}
+    userConfig:
+      dryrun: false
+      logStdout: false
+      storeStdout: false
+    userId: 1050
+  status:
+    commandStatus:
+      command: /bin/bash -c ulimit -n 2048 && mpirun --allow-run-as-root --hostfile
+        /tmp/nnf-dm-node-zclmr/hostfile dcp --progress 1 --uid 1050 --gid 1051 /mnt/nnf/78bcd1bd-334f-4ca3-86eb-700cba268102-0/1/test.blake
+        /lus/global/blake/
+      elapsedTime: 4.913468858s
+      lastMessage: |
+        [nnf-dm-worker-cqxjk:00083] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+      lastMessageTime: "2023-11-13T21:57:20.222197Z"
+      progress: 100
+    endTime: "2023-11-13T21:57:20.228836Z"
+    error:
+      debugMessage: exit status 1
+      severity: Fatal
+      type: Internal
+      userMessage: |
+        data movement operation failed: [2023-11-13T21:57:15] Set Group ID to 1051
+        [2023-11-13T21:57:15] Set User ID to 1050
+        [2023-11-13T21:57:15] Set Group ID to 1051
+        [2023-11-13T21:57:15] Set User ID to 1050
+        [2023-11-13T21:57:15] Set Group ID to 1051
+        [2023-11-13T21:57:15] Set User ID to 1050
+        [2023-11-13T21:57:15] Set Group ID to 1051
+        [2023-11-13T21:57:15] Set User ID to 1050
+        [2023-11-13T21:57:15] Set Group ID to 1051
+        [2023-11-13T21:57:15] Set User ID to 1050
+        [2023-11-13T21:57:15] Set Group ID to 1051
+        [2023-11-13T21:57:15] Set User ID to 1050
+        [2023-11-13T21:57:15] Set Group ID to 1051
+        [2023-11-13T21:57:15] Set Group ID to 1051
+        [2023-11-13T21:57:15] Set User ID to 1050
+        [2023-11-13T21:57:15] Set User ID to 1050
+        [2023-11-13T21:57:15] Walking /mnt/nnf/78bcd1bd-334f-4ca3-86eb-700cba268102-0/1/test.blake
+        [2023-11-13T21:57:15] Walked 1 items in 0.000 secs (2420.850 items/sec) ...
+        [2023-11-13T21:57:15] Walked 1 items in 0.001 seconds (1950.572 items/sec)
+        [2023-11-13T21:57:15] Copying to /lus/global/blake
+        [2023-11-13T21:57:15] Items: 1
+        [2023-11-13T21:57:15]   Directories: 0
+        [2023-11-13T21:57:15]   Files: 1
+        [2023-11-13T21:57:15]   Links: 0
+        [2023-11-13T21:57:15] Data: 2.794 GiB (2.794 GiB per file)
+        [2023-11-13T21:57:15] Creating 1 files.
+        [2023-11-13T21:57:15] [0] [/deps/mpifileutils/src/common/mfu_flist_copy.c:422] ERROR: Failed to set value for name=security.selinux on `/lus/global/blake/test.blake' lsetxattr() (errno=95 Operation not supported)
+        [2023-11-13T21:57:15] Copying data.
+        [2023-11-13T21:57:16] Copied 1.379 GiB (49%) in 1.045 secs (1.320 GiB/s) 1 secs left ...
+        [2023-11-13T21:57:18] Copied 2.774 GiB (99%) in 2.385 secs (1.163 GiB/s) 0 secs left ...
+        [2023-11-13T21:57:18] Copied 2.794 GiB (100%) in 2.385 secs (1.171 GiB/s) done
+        [2023-11-13T21:57:18] Copy data: 2.794 GiB (3000000000 bytes)
+        [2023-11-13T21:57:18] Copy rate: 1.171 GiB/s (3000000000 bytes in 2.385 seconds)
+        [2023-11-13T21:57:18] Syncing data to disk.
+        [2023-11-13T21:57:18] Sync completed in 0.022 seconds.
+        [2023-11-13T21:57:18] Fixing permissions.
+        [2023-11-13T21:57:18] Updated 1 items in 0.001 seconds (1612.963 items/sec)
+        [2023-11-13T21:57:18] Syncing directory updates to disk.
+        [2023-11-13T21:57:18] Sync completed in 0.001 seconds.
+        [2023-11-13T21:57:18] Started: Nov-13-2023,21:57:15
+        [2023-11-13T21:57:18] Completed: Nov-13-2023,21:57:18
+        [2023-11-13T21:57:18] Seconds: 2.412
+        [2023-11-13T21:57:18] Items: 1
+        [2023-11-13T21:57:18]   Directories: 0
+        [2023-11-13T21:57:18]   Files: 1
+        [2023-11-13T21:57:18]   Links: 0
+        [2023-11-13T21:57:18] Data: 2.794 GiB (3000000000 bytes)
+        [2023-11-13T21:57:18] Rate: 1.158 GiB/s (3000000000 bytes in 2.412 seconds)
+        [2023-11-13T21:57:18] [0] [/deps/mpifileutils/src/dcp/dcp.c:574] ERROR: One or more errors were detected while copying: MFU_ERR(-1101)
+        --------------------------------------------------------------------------
+        A system call failed during shared memory initialization that should
+        not have.  It is likely that your MPI job will now either abort or
+        experience performance degradation.
+
+          Local host:  nnf-dm-worker-cqxjk
+          System call: unlink(2) /dev/shm/vader_segment.nnf-dm-worker-cqxjk.bcf0001.3
+          Error:       Operation not permitted (errno 1)
+        --------------------------------------------------------------------------
+        --------------------------------------------------------------------------
+        Primary job  terminated normally, but 1 process returned
+        a non-zero exit code. Per user-direction, the job has been aborted.
+        --------------------------------------------------------------------------
+        --------------------------------------------------------------------------
+        mpirun detected that one or more processes exited with non-zero status, thus causing
+        the job to be terminated. The first process to do so was:
+
+          Process name: [[3023,1],3]
+          Exit code:    1
+        --------------------------------------------------------------------------
+        [nnf-dm-worker-cqxjk:00083] 7 more processes have sent help message help-opal-shmem-mmap.txt / sys call fail
+        [nnf-dm-worker-cqxjk:00083] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+    message: |
+      exit status 1: [2023-11-13T21:57:15] Set Group ID to 1051
+      [2023-11-13T21:57:15] Set User ID to 1050
+      [2023-11-13T21:57:15] Set Group ID to 1051
+      [2023-11-13T21:57:15] Set User ID to 1050
+      [2023-11-13T21:57:15] Set Group ID to 1051
+      [2023-11-13T21:57:15] Set User ID to 1050
+      [2023-11-13T21:57:15] Set Group ID to 1051
+      [2023-11-13T21:57:15] Set User ID to 1050
+      [2023-11-13T21:57:15] Set Group ID to 1051
+      [2023-11-13T21:57:15] Set User ID to 1050
+      [2023-11-13T21:57:15] Set Group ID to 1051
+      [2023-11-13T21:57:15] Set User ID to 1050
+      [2023-11-13T21:57:15] Set Group ID to 1051
+      [2023-11-13T21:57:15] Set Group ID to 1051
+      [2023-11-13T21:57:15] Set User ID to 1050
+      [2023-11-13T21:57:15] Set User ID to 1050
+      [2023-11-13T21:57:15] Walking /mnt/nnf/78bcd1bd-334f-4ca3-86eb-700cba268102-0/1/test.blake
+      [2023-11-13T21:57:15] Walked 1 items in 0.000 secs (2420.850 items/sec) ...
+      [2023-11-13T21:57:15] Walked 1 items in 0.001 seconds (1950.572 items/sec)
+      [2023-11-13T21:57:15] Copying to /lus/global/blake
+      [2023-11-13T21:57:15] Items: 1
+      [2023-11-13T21:57:15]   Directories: 0
+      [2023-11-13T21:57:15]   Files: 1
+      [2023-11-13T21:57:15]   Links: 0
+      [2023-11-13T21:57:15] Data: 2.794 GiB (2.794 GiB per file)
+      [2023-11-13T21:57:15] Creating 1 files.
+      [2023-11-13T21:57:15] [0] [/deps/mpifileutils/src/common/mfu_flist_copy.c:422] ERROR: Failed to set value for name=security.selinux on `/lus/global/blake/test.blake' lsetxattr() (errno=95 Operation not supported)
+      [2023-11-13T21:57:15] Copying data.
+      [2023-11-13T21:57:16] Copied 1.379 GiB (49%) in 1.045 secs (1.320 GiB/s) 1 secs left ...
+      [2023-11-13T21:57:18] Copied 2.774 GiB (99%) in 2.385 secs (1.163 GiB/s) 0 secs left ...
+      [2023-11-13T21:57:18] Copied 2.794 GiB (100%) in 2.385 secs (1.171 GiB/s) done
+      [2023-11-13T21:57:18] Copy data: 2.794 GiB (3000000000 bytes)
+      [2023-11-13T21:57:18] Copy rate: 1.171 GiB/s (3000000000 bytes in 2.385 seconds)
+      [2023-11-13T21:57:18] Syncing data to disk.
+      [2023-11-13T21:57:18] Sync completed in 0.022 seconds.
+      [2023-11-13T21:57:18] Fixing permissions.
+      [2023-11-13T21:57:18] Updated 1 items in 0.001 seconds (1612.963 items/sec)
+      [2023-11-13T21:57:18] Syncing directory updates to disk.
+      [2023-11-13T21:57:18] Sync completed in 0.001 seconds.
+      [2023-11-13T21:57:18] Started: Nov-13-2023,21:57:15
+      [2023-11-13T21:57:18] Completed: Nov-13-2023,21:57:18
+      [2023-11-13T21:57:18] Seconds: 2.412
+      [2023-11-13T21:57:18] Items: 1
+      [2023-11-13T21:57:18]   Directories: 0
+      [2023-11-13T21:57:18]   Files: 1
+      [2023-11-13T21:57:18]   Links: 0
+      [2023-11-13T21:57:18] Data: 2.794 GiB (3000000000 bytes)
+      [2023-11-13T21:57:18] Rate: 1.158 GiB/s (3000000000 bytes in 2.412 seconds)
+      [2023-11-13T21:57:18] [0] [/deps/mpifileutils/src/dcp/dcp.c:574] ERROR: One or more errors were detected while copying: MFU_ERR(-1101)
+      --------------------------------------------------------------------------
+      A system call failed during shared memory initialization that should
+      not have.  It is likely that your MPI job will now either abort or
+      experience performance degradation.
+
+        Local host:  nnf-dm-worker-cqxjk
+        System call: unlink(2) /dev/shm/vader_segment.nnf-dm-worker-cqxjk.bcf0001.3
+        Error:       Operation not permitted (errno 1)
+      --------------------------------------------------------------------------
+      --------------------------------------------------------------------------
+      Primary job  terminated normally, but 1 process returned
+      a non-zero exit code. Per user-direction, the job has been aborted.
+      --------------------------------------------------------------------------
+      --------------------------------------------------------------------------
+      mpirun detected that one or more processes exited with non-zero status, thus causing
+      the job to be terminated. The first process to do so was:
+
+        Process name: [[3023,1],3]
+        Exit code:    1
+      --------------------------------------------------------------------------
+      [nnf-dm-worker-cqxjk:00083] 7 more processes have sent help message help-opal-shmem-mmap.txt / sys call fail
+      [nnf-dm-worker-cqxjk:00083] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+    startTime: "2023-11-13T21:57:15.302944Z"
+    state: Finished
+    status: Failed
+- apiVersion: nnf.cray.hpe.com/v1alpha1
+  kind: NnfDataMovement
+  metadata:
+    creationTimestamp: "2023-11-13T22:02:49Z"
+    finalizers:
+    - dm.cray.hpe.com
+    generateName: nnf-dm-node-
+    generation: 1
+    labels:
+      dataworkflowservices.github.io/owner.kind: NnfDataMovement
+      dataworkflowservices.github.io/owner.name: blake-gfs2
+      dataworkflowservices.github.io/owner.namespace: default
+      dm.cray.hpe.com/initiator: compute-node-5
+      nnf.cray.hpe.com/teardown_state: PostRun
+    name: nnf-dm-node-b29gh
+    namespace: rabbit-node-2
+    resourceVersion: "139381461"
+    uid: bdebcb76-6b6a-420c-bf49-cb0bd1380311
+  spec:
+    cancel: false
+    destination:
+      path: /lus/global/blake/test.blake
+      storageReference: {}
+    groupId: 1051
+    source:
+      path: /mnt/nnf/78bcd1bd-334f-4ca3-86eb-700cba268102-0/1/test.blake
+      storageReference: {}
+    userConfig:
+      dryrun: false
+      logStdout: false
+      storeStdout: false
+    userId: 1050
+  status:
+    commandStatus:
+      command: /bin/bash -c ulimit -n 2048 && mpirun --allow-run-as-root --hostfile
+        /tmp/nnf-dm-node-b29gh/hostfile dcp --progress 1 --uid 1050 --gid 1051 /mnt/nnf/78bcd1bd-334f-4ca3-86eb-700cba268102-0/1/test.blake
+        /lus/global/blake/test.blake
+      elapsedTime: 4.102996767s
+      lastMessage: |
+        [nnf-dm-worker-cqxjk:00111] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+      lastMessageTime: "2023-11-13T22:02:53.280132Z"
+      progress: 100
+    endTime: "2023-11-13T22:02:53.287124Z"
+    error:
+      debugMessage: exit status 1
+      severity: Fatal
+      type: Internal
+      userMessage: |
+        data movement operation failed: [2023-11-13T22:02:49] Set Group ID to 1051
+        [2023-11-13T22:02:49] Set User ID to 1050
+        [2023-11-13T22:02:49] Set Group ID to 1051
+        [2023-11-13T22:02:49] Set User ID to 1050
+        [2023-11-13T22:02:49] Set Group ID to 1051
+        [2023-11-13T22:02:49] Set Group ID to 1051
+        [2023-11-13T22:02:49] Set User ID to 1050
+        [2023-11-13T22:02:49] Set Group ID to 1051
+        [2023-11-13T22:02:49] Set User ID to 1050
+        [2023-11-13T22:02:49] Set Group ID to 1051
+        [2023-11-13T22:02:49] Set User ID to 1050
+        [2023-11-13T22:02:49] Set Group ID to 1051
+        [2023-11-13T22:02:49] Set Group ID to 1051
+        [2023-11-13T22:02:49] Set User ID to 1050
+        [2023-11-13T22:02:49] Set User ID to 1050
+        [2023-11-13T22:02:49] Set User ID to 1050
+        [2023-11-13T22:02:49] Walking /mnt/nnf/78bcd1bd-334f-4ca3-86eb-700cba268102-0/1/test.blake
+        [2023-11-13T22:02:49] Walked 1 items in 0.000 secs (2501.363 items/sec) ...
+        [2023-11-13T22:02:49] Walked 1 items in 0.000 seconds (2037.706 items/sec)
+        [2023-11-13T22:02:49] Copying to /lus/global/blake/test.blake
+        [2023-11-13T22:02:49] Items: 1
+        [2023-11-13T22:02:49]   Directories: 0
+        [2023-11-13T22:02:49]   Files: 1
+        [2023-11-13T22:02:49]   Links: 0
+        [2023-11-13T22:02:49] Data: 2.794 GiB (2.794 GiB per file)
+        [2023-11-13T22:02:49] Creating 1 files.
+        [2023-11-13T22:02:49] Original file exists, skip the creation: `/lus/global/blake/test.blake' (errno=17 File exists)
+        [2023-11-13T22:02:49] [0] [/deps/mpifileutils/src/common/mfu_flist_copy.c:422] ERROR: Failed to set value for name=security.selinux on `/lus/global/blake/test.blake' lsetxattr() (errno=95 Operation not supported)
+        [2023-11-13T22:02:49] Copying data.
+        [2023-11-13T22:02:50] Copied 1.805 GiB (65%) in 1.064 secs (1.696 GiB/s) 1 secs left ...
+        [2023-11-13T22:02:51] Copied 2.794 GiB (100%) in 1.585 secs (1.762 GiB/s) done
+        [2023-11-13T22:02:51] Copy data: 2.794 GiB (3000000000 bytes)
+        [2023-11-13T22:02:51] Copy rate: 1.762 GiB/s (3000000000 bytes in 1.586 seconds)
+        [2023-11-13T22:02:51] Syncing data to disk.
+        [2023-11-13T22:02:51] Sync completed in 0.014 seconds.
+        [2023-11-13T22:02:51] Fixing permissions.
+        [2023-11-13T22:02:51] Updated 1 items in 0.001 seconds (1824.857 items/sec)
+        [2023-11-13T22:02:51] Syncing directory updates to disk.
+        [2023-11-13T22:02:51] Sync completed in 0.001 seconds.
+        [2023-11-13T22:02:51] Started: Nov-13-2023,22:02:49
+        [2023-11-13T22:02:51] Completed: Nov-13-2023,22:02:51
+        [2023-11-13T22:02:51] Seconds: 1.602
+        [2023-11-13T22:02:51] Items: 1
+        [2023-11-13T22:02:51]   Directories: 0
+        [2023-11-13T22:02:51]   Files: 1
+        [2023-11-13T22:02:51]   Links: 0
+        [2023-11-13T22:02:51] Data: 2.794 GiB (3000000000 bytes)
+        [2023-11-13T22:02:51] Rate: 1.744 GiB/s (3000000000 bytes in 1.602 seconds)
+        [2023-11-13T22:02:51] [0] [/deps/mpifileutils/src/dcp/dcp.c:574] ERROR: One or more errors were detected while copying: MFU_ERR(-1101)
+        --------------------------------------------------------------------------
+        A system call failed during shared memory initialization that should
+        not have.  It is likely that your MPI job will now either abort or
+        experience performance degradation.
+
+          Local host:  nnf-dm-worker-cqxjk
+          System call: unlink(2) /dev/shm/vader_segment.nnf-dm-worker-cqxjk.bf30001.4
+          Error:       Operation not permitted (errno 1)
+        --------------------------------------------------------------------------
+        --------------------------------------------------------------------------
+        Primary job  terminated normally, but 1 process returned
+        a non-zero exit code. Per user-direction, the job has been aborted.
+        --------------------------------------------------------------------------
+        --------------------------------------------------------------------------
+        mpirun detected that one or more processes exited with non-zero status, thus causing
+        the job to be terminated. The first process to do so was:
+
+          Process name: [[3059,1],5]
+          Exit code:    1
+        --------------------------------------------------------------------------
+        [nnf-dm-worker-cqxjk:00111] 7 more processes have sent help message help-opal-shmem-mmap.txt / sys call fail
+        [nnf-dm-worker-cqxjk:00111] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+    message: |
+      exit status 1: [2023-11-13T22:02:49] Set Group ID to 1051
+      [2023-11-13T22:02:49] Set User ID to 1050
+      [2023-11-13T22:02:49] Set Group ID to 1051
+      [2023-11-13T22:02:49] Set User ID to 1050
+      [2023-11-13T22:02:49] Set Group ID to 1051
+      [2023-11-13T22:02:49] Set Group ID to 1051
+      [2023-11-13T22:02:49] Set User ID to 1050
+      [2023-11-13T22:02:49] Set Group ID to 1051
+      [2023-11-13T22:02:49] Set User ID to 1050
+      [2023-11-13T22:02:49] Set Group ID to 1051
+      [2023-11-13T22:02:49] Set User ID to 1050
+      [2023-11-13T22:02:49] Set Group ID to 1051
+      [2023-11-13T22:02:49] Set Group ID to 1051
+      [2023-11-13T22:02:49] Set User ID to 1050
+      [2023-11-13T22:02:49] Set User ID to 1050
+      [2023-11-13T22:02:49] Set User ID to 1050
+      [2023-11-13T22:02:49] Walking /mnt/nnf/78bcd1bd-334f-4ca3-86eb-700cba268102-0/1/test.blake
+      [2023-11-13T22:02:49] Walked 1 items in 0.000 secs (2501.363 items/sec) ...
+      [2023-11-13T22:02:49] Walked 1 items in 0.000 seconds (2037.706 items/sec)
+      [2023-11-13T22:02:49] Copying to /lus/global/blake/test.blake
+      [2023-11-13T22:02:49] Items: 1
+      [2023-11-13T22:02:49]   Directories: 0
+      [2023-11-13T22:02:49]   Files: 1
+      [2023-11-13T22:02:49]   Links: 0
+      [2023-11-13T22:02:49] Data: 2.794 GiB (2.794 GiB per file)
+      [2023-11-13T22:02:49] Creating 1 files.
+      [2023-11-13T22:02:49] Original file exists, skip the creation: `/lus/global/blake/test.blake' (errno=17 File exists)
+      [2023-11-13T22:02:49] [0] [/deps/mpifileutils/src/common/mfu_flist_copy.c:422] ERROR: Failed to set value for name=security.selinux on `/lus/global/blake/test.blake' lsetxattr() (errno=95 Operation not supported)
+      [2023-11-13T22:02:49] Copying data.
+      [2023-11-13T22:02:50] Copied 1.805 GiB (65%) in 1.064 secs (1.696 GiB/s) 1 secs left ...
+      [2023-11-13T22:02:51] Copied 2.794 GiB (100%) in 1.585 secs (1.762 GiB/s) done
+      [2023-11-13T22:02:51] Copy data: 2.794 GiB (3000000000 bytes)
+      [2023-11-13T22:02:51] Copy rate: 1.762 GiB/s (3000000000 bytes in 1.586 seconds)
+      [2023-11-13T22:02:51] Syncing data to disk.
+      [2023-11-13T22:02:51] Sync completed in 0.014 seconds.
+      [2023-11-13T22:02:51] Fixing permissions.
+      [2023-11-13T22:02:51] Updated 1 items in 0.001 seconds (1824.857 items/sec)
+      [2023-11-13T22:02:51] Syncing directory updates to disk.
+      [2023-11-13T22:02:51] Sync completed in 0.001 seconds.
+      [2023-11-13T22:02:51] Started: Nov-13-2023,22:02:49
+      [2023-11-13T22:02:51] Completed: Nov-13-2023,22:02:51
+      [2023-11-13T22:02:51] Seconds: 1.602
+      [2023-11-13T22:02:51] Items: 1
+      [2023-11-13T22:02:51]   Directories: 0
+      [2023-11-13T22:02:51]   Files: 1
+      [2023-11-13T22:02:51]   Links: 0
+      [2023-11-13T22:02:51] Data: 2.794 GiB (3000000000 bytes)
+      [2023-11-13T22:02:51] Rate: 1.744 GiB/s (3000000000 bytes in 1.602 seconds)
+      [2023-11-13T22:02:51] [0] [/deps/mpifileutils/src/dcp/dcp.c:574] ERROR: One or more errors were detected while copying: MFU_ERR(-1101)
+      --------------------------------------------------------------------------
+      A system call failed during shared memory initialization that should
+      not have.  It is likely that your MPI job will now either abort or
+      experience performance degradation.
+
+        Local host:  nnf-dm-worker-cqxjk
+        System call: unlink(2) /dev/shm/vader_segment.nnf-dm-worker-cqxjk.bf30001.4
+        Error:       Operation not permitted (errno 1)
+      --------------------------------------------------------------------------
+      --------------------------------------------------------------------------
+      Primary job  terminated normally, but 1 process returned
+      a non-zero exit code. Per user-direction, the job has been aborted.
+      --------------------------------------------------------------------------
+      --------------------------------------------------------------------------
+      mpirun detected that one or more processes exited with non-zero status, thus causing
+      the job to be terminated. The first process to do so was:
+
+        Process name: [[3059,1],5]
+        Exit code:    1
+      --------------------------------------------------------------------------
+      [nnf-dm-worker-cqxjk:00111] 7 more processes have sent help message help-opal-shmem-mmap.txt / sys call fail
+      [nnf-dm-worker-cqxjk:00111] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+    startTime: "2023-11-13T22:02:49.170552Z"
+    state: Finished
+    status: Failed
+kind: List
+metadata:
+  resourceVersion: ""

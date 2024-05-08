@@ -1,0 +1,7 @@
+spec:
+  allocationSets:
+    - allocationSize: 10737418240
+      label: xfs
+      storage:
+        - name: kind-worker2
+          allocationCount: 2

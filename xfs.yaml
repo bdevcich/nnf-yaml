@@ -1,13 +1,13 @@
-apiVersion: dws.cray.hpe.com/v1alpha1
+apiVersion: dataworkflowservices.github.io/v1alpha2
 kind: Workflow
 metadata:
-  name: blake
+  name: blake-xfs
   namespace: default
 spec:
-  desiredState: "Proposal"
+  desiredState: 'Proposal'
   dwDirectives:
-    - "#DW jobdw type=xfs capacity=1GB name=blake"
-  wlmID: "5f239bd8-30db-450b-8c2c-a1a7c8631a1a"
+    - '#DW jobdw type=xfs capacity=10KiB name=blake-xfs'
+  wlmID: '5f239bd8-30db-450b-8c2c-a1a7c8631a1a'
   jobID: 900001
-  userID: 1041
-  groupID: 999
+  userID: 1050
+  groupID: 1051

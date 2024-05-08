@@ -1,0 +1,56 @@
+- name: Sync users on all nodes
+  hosts: htx-rabbits, htx-lustre, htx-computes
+  remote_user: root
+  tasks:
+    - name: Create flux group
+      group:
+        name: flux
+        gid: 1052
+    - name: Create flux user
+      user:
+        name: flux
+        password: flux
+        state: present
+        create_home: true
+        uid: 1051
+        group: flux
+    - name: Create blake user
+      user:
+        name: blake
+        password: blake
+        state: present
+        create_home: true
+        uid: 1060
+        group: users
+    - name: Create tony user
+      user:
+        name: tony
+        password: tony
+        state: present
+        create_home: true
+        uid: 1061
+        group: users
+    - name: Create dean user
+      user:
+        name: dean
+        password: dean
+        state: present
+        create_home: true
+        uid: 1062
+        group: users
+    - name: Create matt user
+      user:
+        name: matt 
+        password: matt
+        state: present
+        create_home: true
+        uid: 1063
+        group: users
+    - name: Create actions-runner user
+      user:
+        name: actions-runner
+        password: actions-runner
+        state: present
+        create_home: true
+        uid: 1064
+        group: users

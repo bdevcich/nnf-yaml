@@ -1,0 +1,107 @@
+apiVersion: v1
+items:
+- apiVersion: nnf.cray.hpe.com/v1alpha1
+  kind: NnfDataMovement
+  metadata:
+    creationTimestamp: "2023-11-13T21:32:36Z"
+    finalizers:
+    - dm.cray.hpe.com
+    generation: 1
+    labels:
+      dataworkflowservices.github.io/owner.kind: Workflow
+      dataworkflowservices.github.io/owner.name: gfs2-with-data-movement
+      dataworkflowservices.github.io/owner.namespace: default
+      dataworkflowservices.github.io/workflow.name: gfs2-with-data-movement
+      dataworkflowservices.github.io/workflow.namespace: default
+      nnf.cray.hpe.com/directive_index: "2"
+      nnf.cray.hpe.com/teardown_state: DataOut
+    name: gfs2-with-data-movement-2-1
+    namespace: rabbit-node-2
+    resourceVersion: "139375378"
+    uid: b54cf613-184d-4fb5-a95b-4c63325cce95
+  spec:
+    cancel: false
+    destination:
+      path: /lus/kelso/testuser/test.out
+      storageReference:
+        kind: LustreFileSystem
+        name: global-kelso
+        namespace: default
+    groupId: 1051
+    source:
+      path: /mnt/nnf/1f486252-bfe6-4ee7-bad6-288cead7337a-0/1/test.in
+      storageReference:
+        kind: NnfStorage
+        name: gfs2-with-data-movement-0
+        namespace: default
+    userId: 1050
+  status:
+    commandStatus:
+      command: /bin/bash -c ulimit -n 2048 && mpirun --allow-run-as-root --hostfile
+        /tmp/gfs2-with-data-movement-2-1/hostfile dcp --progress 1 --uid 1050 --gid
+        1051 /mnt/nnf/1f486252-bfe6-4ee7-bad6-288cead7337a-0/1/test.in /lus/kelso/testuser/test.out
+      elapsedTime: 664.169423ms
+      lastMessage: |
+        [nnf-dm-worker-d2tmz:00098] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+      lastMessageTime: "2023-11-13T21:32:37.013594Z"
+    endTime: "2023-11-13T21:32:37.020410Z"
+    message: |
+      [2023-11-13T21:32:36] Set Group ID to 1051
+      [2023-11-13T21:32:36] Set User ID to 1050
+      [2023-11-13T21:32:36] Set Group ID to 1051
+      [2023-11-13T21:32:36] Set User ID to 1050
+      [2023-11-13T21:32:36] Set Group ID to 1051
+      [2023-11-13T21:32:36] Set User ID to 1050
+      [2023-11-13T21:32:36] Set Group ID to 1051
+      [2023-11-13T21:32:36] Set User ID to 1050
+      [2023-11-13T21:32:36] Set Group ID to 1051
+      [2023-11-13T21:32:36] Set Group ID to 1051
+      [2023-11-13T21:32:36] Set User ID to 1050
+      [2023-11-13T21:32:36] Set User ID to 1050
+      [2023-11-13T21:32:36] Set Group ID to 1051
+      [2023-11-13T21:32:36] Set User ID to 1050
+      [2023-11-13T21:32:36] Set Group ID to 1051
+      [2023-11-13T21:32:36] Set User ID to 1050
+      [2023-11-13T21:32:36] Walking /mnt/nnf/1f486252-bfe6-4ee7-bad6-288cead7337a-0/1/test.in
+      [2023-11-13T21:32:36] Walked 1 items in 0.000 secs (2049.676 items/sec) ...
+      [2023-11-13T21:32:36] Walked 1 items in 0.001 seconds (1736.587 items/sec)
+      [2023-11-13T21:32:36] Copying to /lus/kelso/testuser/test.out
+      [2023-11-13T21:32:36] Items: 1
+      [2023-11-13T21:32:36]   Directories: 0
+      [2023-11-13T21:32:36]   Files: 1
+      [2023-11-13T21:32:36]   Links: 0
+      [2023-11-13T21:32:36] Data: 3.628 MiB (3.628 MiB per file)
+      [2023-11-13T21:32:36] Creating 1 files.
+      [2023-11-13T21:32:36] Original file exists, skip the creation: `/lus/kelso/testuser/test.out' (errno=17 File exists)
+      [2023-11-13T21:32:36] Copying data.
+      [2023-11-13T21:32:36] Copy data: 3.628 MiB (3804432 bytes)
+      [2023-11-13T21:32:36] Copy rate: 41.985 MiB/s (3804432 bytes in 0.086 seconds)
+      [2023-11-13T21:32:36] Syncing data to disk.
+      [2023-11-13T21:32:36] Sync completed in 0.028 seconds.
+      [2023-11-13T21:32:36] Fixing permissions.
+      [2023-11-13T21:32:36] Updated 1 items in 0.001 seconds (759.300 items/sec)
+      [2023-11-13T21:32:36] Syncing directory updates to disk.
+      [2023-11-13T21:32:36] Sync completed in 0.002 seconds.
+      [2023-11-13T21:32:36] Started: Nov-13-2023,21:32:36
+      [2023-11-13T21:32:36] Completed: Nov-13-2023,21:32:36
+      [2023-11-13T21:32:36] Seconds: 0.119
+      [2023-11-13T21:32:36] Items: 1
+      [2023-11-13T21:32:36]   Directories: 0
+      [2023-11-13T21:32:36]   Files: 1
+      [2023-11-13T21:32:36]   Links: 0
+      [2023-11-13T21:32:36] Data: 3.628 MiB (3804432 bytes)
+      [2023-11-13T21:32:36] Rate: 30.405 MiB/s (3804432 bytes in 0.119 seconds)
+      --------------------------------------------------------------------------
+      A system call failed during shared memory initialization that should
+      not have.  It is likely that your MPI job will now either abort or
+      experience performance degradation.
+
+        Local host:  nnf-dm-worker-d2tmz
+        System call: unlink(2) /dev/shm/vader_segment.nnf-dm-worker-d2tmz.a8790001.0
+        Error:       Operation not permitted (errno 1)
+      --------------------------------------------------------------------------
+      [nnf-dm-worker-d2tmz:00098] 7 more processes have sent help message help-opal-shmem-mmap.txt / sys call fail
+      [nnf-dm-worker-d2tmz:00098] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+    startTime: "2023-11-13T21:32:36.343706Z"
+    state: Finished
+    status: Success

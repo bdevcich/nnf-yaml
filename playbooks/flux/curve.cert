@@ -1,0 +1,13 @@
+#  ZeroMQ CURVE **Secret** Certificate
+#  DO NOT DISTRIBUTE
+
+metadata
+    name = "rabbit-compute-2"
+    keygen.flux-core-version = "0.55.0"
+    keygen.hostname = "rabbit-compute-2"
+    keygen.time = "2023-12-04T11:02:04"
+    keygen.userid = "0"
+    keygen.zmq-version = "4.3.4"
+curve
+    public-key = "Nzg3+G4z7.I[/gZ7N)..J?tNkL#9h({PjxayLl[R"
+    secret-key = "v=u(H@d#qB8AAwBu}1QZJ!TiJzF.DXCL4{mI#j8^"

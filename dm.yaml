@@ -1,0 +1,230 @@
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: NnfDataMovement
+metadata:
+  creationTimestamp: "2023-09-13T14:59:28Z"
+  deletionGracePeriodSeconds: 0
+  deletionTimestamp: "2023-09-13T16:11:48Z"
+  finalizers:
+  - dm.cray.hpe.com
+  generateName: nnf-dm-node-
+  generation: 2
+  labels:
+    dm.cray.hpe.com/initiator: compute-node-4
+    dws.cray.hpe.com/owner.kind: NnfDataMovement
+    dws.cray.hpe.com/owner.name: blake-gfs2
+    dws.cray.hpe.com/owner.namespace: default
+    nnf.cray.hpe.com/teardown_state: PostRun
+  name: nnf-dm-node-8ksvw
+  namespace: rabbit-node-2
+  resourceVersion: "122633783"
+  uid: 76d23443-3dbe-40f5-b689-77f7f4e7e4b1
+spec:
+  cancel: false
+  destination:
+    path: /mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4
+    storageReference: {}
+  groupId: 1051
+  source:
+    path: /mnt/nnf/ad2dbc5e-7b37-4096-8655-92acb39333ed-0/0/
+    storageReference: {}
+  userConfig:
+    dryrun: false
+    logStdout: false
+    maxSlots: 12
+    slots: 6
+    storeStdout: true
+  userId: 1050
+status:
+  commandStatus:
+    command: /bin/bash -c ulimit -n 2048 && mpirun --allow-run-as-root --hostfile
+      /tmp/nnf-dm-node-8ksvw/hostfile dcp --progress 1 --uid 1050 --gid 1051 /mnt/nnf/ad2dbc5e-7b37-4096-8655-92acb39333ed-0/0/
+      /mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4
+    elapsedTime: 1.846479121s
+    lastMessage: |
+      [nnf-dm-worker-29nws:00697] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+    lastMessageTime: "2023-09-13T15:04:54.845278Z"
+    progress: 100
+  endTime: "2023-09-13T15:04:54.851921Z"
+  message: |
+    [2023-09-13T15:04:53] Set Group ID to 1051
+    [2023-09-13T15:04:53] Set User ID to 1050
+    [2023-09-13T15:04:53] Set Group ID to 1051
+    [2023-09-13T15:04:53] Set Group ID to 1051
+    [2023-09-13T15:04:53] Set User ID to 1050
+    [2023-09-13T15:04:53] Set User ID to 1050
+    [2023-09-13T15:04:53] Set Group ID to 1051
+    [2023-09-13T15:04:53] Set User ID to 1050
+    [2023-09-13T15:04:53] Set Group ID to 1051
+    [2023-09-13T15:04:53] Set User ID to 1050
+    [2023-09-13T15:04:53] Set Group ID to 1051
+    [2023-09-13T15:04:53] Set User ID to 1050
+    [2023-09-13T15:04:53] Walking /mnt/nnf/ad2dbc5e-7b37-4096-8655-92acb39333ed-0/0
+    [2023-09-13T15:04:53] Walked 125 items in 0.002 secs (60225.987 items/sec) ...
+    [2023-09-13T15:04:53] Walked 125 items in 0.002 seconds (57499.657 items/sec)
+    [2023-09-13T15:04:53] Copying to /mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4
+    [2023-09-13T15:04:53] Items: 125
+    [2023-09-13T15:04:53]   Directories: 64
+    [2023-09-13T15:04:53]   Files: 61
+    [2023-09-13T15:04:53]   Links: 0
+    [2023-09-13T15:04:53] Data: 8.883 GiB (149.110 MiB per file)
+    [2023-09-13T15:04:53] Creating 64 directories
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/2.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir/2.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/2.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/2.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/1.dir/0.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/1.dir/0.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/1.dir/0.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original directory exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/1.dir/1.dir' (errno=17 File exists)
+    [2023-09-13T15:04:53] Creating 61 files.
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/2.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir/1' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/1.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/0.dir/2.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/2.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/0.dir/0.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/1.dir/2.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/1.dir/0.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/0.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/0.dir/1.dir/0.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/0.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/0.dir/0.dir/1.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Original file exists, skip the creation: `/mnt/nnf/651de64a-c4cf-4db0-ab9b-e4d3655d5253-0/mpiuser/blake-gfs2-rabbit-compute-4/1.dir/1.dir/0.dir/1.dir/1.dir/0' (errno=17 File exists)
+    [2023-09-13T15:04:53] Copying data.
+    [2023-09-13T15:04:54] Copied 7.879 GiB (89%) in 1.043 secs (7.556 GiB/s) 0 secs left ...
+    [2023-09-13T15:04:54] Copied 8.883 GiB (100%) in 1.295 secs (6.861 GiB/s) done
+    [2023-09-13T15:04:54] Copy data: 8.883 GiB (9537546473 bytes)
+    [2023-09-13T15:04:54] Copy rate: 6.860 GiB/s (9537546473 bytes in 1.295 seconds)
+    [2023-09-13T15:04:54] Syncing data to disk.
+    [2023-09-13T15:04:54] Sync completed in 0.037 seconds.
+    [2023-09-13T15:04:54] Fixing permissions.
+    [2023-09-13T15:04:54] Updated 125 items in 0.005 seconds (25302.645 items/sec)
+    [2023-09-13T15:04:54] Syncing directory updates to disk.
+    [2023-09-13T15:04:54] Sync completed in 0.001 seconds.
+    [2023-09-13T15:04:54] Started: Sep-13-2023,15:04:53
+    [2023-09-13T15:04:54] Completed: Sep-13-2023,15:04:54
+    [2023-09-13T15:04:54] Seconds: 1.352
+    [2023-09-13T15:04:54] Items: 125
+    [2023-09-13T15:04:54]   Directories: 64
+    [2023-09-13T15:04:54]   Files: 61
+    [2023-09-13T15:04:54]   Links: 0
+    [2023-09-13T15:04:54] Data: 8.883 GiB (9537546473 bytes)
+    [2023-09-13T15:04:54] Rate: 6.572 GiB/s (9537546473 bytes in 1.352 seconds)
+    --------------------------------------------------------------------------
+    A system call failed during shared memory initialization that should
+    not have.  It is likely that your MPI job will now either abort or
+    experience performance degradation.
+
+      Local host:  nnf-dm-worker-29nws
+      System call: unlink(2) /dev/shm/vader_segment.nnf-dm-worker-29nws.aa4a0001.0
+      Error:       Operation not permitted (errno 1)
+    --------------------------------------------------------------------------
+    [nnf-dm-worker-29nws:00697] 5 more processes have sent help message help-opal-shmem-mmap.txt / sys call fail
+    [nnf-dm-worker-29nws:00697] Set MCA parameter "orte_base_help_aggregate" to 0 to see all help / error messages
+  startTime: "2023-09-13T15:04:52.992163Z"
+  state: Finished
+  status: Success

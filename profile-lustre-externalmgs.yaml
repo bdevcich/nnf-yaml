@@ -1,0 +1,78 @@
+apiVersion: nnf.cray.hpe.com/v1alpha1
+data:
+  gfs2Storage:
+    commandlines:
+      lvCreate: --activate ys --extents 100%VG --stripes $DEVICE_NUM --stripesize=32KiB
+        --name $LV_NAME $VG_NAME
+      lvRemove: $VG_NAME
+      mkfs: -j2 -p $PROTOCOL -t $CLUSTER_NAME:$LOCK_SPACE $DEVICE
+      pvCreate: $DEVICE
+      vgChange:
+        activate: --activate ys $VG_NAME
+        deactivate: --activate n $VG_NAME
+        lockStart: --lock-start $VG_NAME
+      vgCreate: $VG_NAME $DEVICE_LIST
+      vgRemove: $VG_NAME
+  lustreStorage:
+    capacityMdt: 5GiB
+    capacityMgt: 1GiB
+    combinedMgtMdt: false
+    # TODO: change this to match the global lustre's nnfstorage
+    # k get nnfstorage blake-global-lustre-0 -oyaml | yq '.status.mgsNode'
+    # rabbit-node-1
+    externalMgs: 10.1.1.5@tcp
+    # rabbit-node-2
+    # externalMgs: 10.1.1.8@tcp
+    exclusiveMdt: false
+    mdtCommandlines:
+      mkfs: --mdt --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
+    mdtOptions:
+      colocateComputes: false
+      count: 1
+    mgtCommandlines:
+      mkfs: --mgs $VOL_NAME
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
+    mgtMdtCommandlines:
+      mkfs: --mgs --mdt --fsname=$FS_NAME --index=$INDEX $VOL_NAME
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
+    mgtMdtOptions:
+      colocateComputes: false
+      count: 1
+    mgtOptions:
+      colocateComputes: false
+      count: 1
+    ostCommandlines:
+      mkfs: --ost --fsname=$FS_NAME --mgsnode=$MGS_NID --index=$INDEX $VOL_NAME
+      zpoolCreate: -O canmount=off -o cachefile=none $POOL_NAME $DEVICE_LIST
+    ostOptions:
+      colocateComputes: true
+      scale: 5
+  pinned: false
+  rawStorage:
+    commandlines:
+      lvCreate: --extents 100%VG --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME
+        $VG_NAME
+      lvRemove: $VG_NAME
+      pvCreate: $DEVICE
+      vgChange:
+        activate: --activate y $VG_NAME
+        deactivate: --activate n $VG_NAME
+      vgCreate: $VG_NAME $DEVICE_LIST
+      vgRemove: $VG_NAME
+  xfsStorage:
+    commandlines:
+      lvCreate: --extents 100%VG --stripes $DEVICE_NUM --stripesize=32KiB --name $LV_NAME
+        $VG_NAME
+      lvRemove: $VG_NAME
+      mkfs: $DEVICE
+      pvCreate: $DEVICE
+      vgChange:
+        activate: --activate y $VG_NAME
+        deactivate: --activate n $VG_NAME
+      vgCreate: $VG_NAME $DEVICE_LIST
+      vgRemove: $VG_NAME
+kind: NnfStorageProfile
+metadata:
+  name: global-mgs
+  namespace: nnf-system

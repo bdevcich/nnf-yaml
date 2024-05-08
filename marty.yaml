@@ -1,0 +1,15 @@
+apiVersion: dataworkflowservices.github.io/v1alpha1
+kind: Workflow
+metadata:
+  name: nnf-container-example
+  namespace: default
+spec:
+  desiredState: 'Proposal'
+  dwDirectives:
+    - '#DW jobdw name=nnf-container-example-lustre type=lustre capacity=50GB'
+    - "#DW container name=nnf-container-example profile=demo \
+      DW_JOB_my_storage=nnf-container-example-lustre"
+  wlmID: '5f239bd8-30db-450b-8c2c-a1a7c8631a1a'
+  jobID: 900001
+  userID: 1050
+  groupID: 1051

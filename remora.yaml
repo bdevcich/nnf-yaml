@@ -1,0 +1,14 @@
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: IntTestHelper
+metadata:
+  name: helper
+  namespace: kind-worker3
+  # namespace: rabbit-node-1
+  # TODO: namespace: nnf-integration-test-system
+spec:
+  # command: 'mkdir /lus/global/mpiuser && chown -R 1050:1051 /lus/global/mpiuser'
+  command: |
+    mkdir -p /lus/global/mpiuser && \
+    cp /usr/bin/perl /lus/global/mpiuser/test.in && \
+    chown -R 1050:1051 /lus/global/mpiuser && \
+    ls -l /lus/global/mpiuser

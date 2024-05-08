@@ -29,7 +29,9 @@ spec:
                 path: "/mnt/nnf/06020ad9-28d4-451b-ab27-00eda8f8ecb6-0"
                 type: Directory
           initContainers:
-            - command:
+            - name: container-mpi-init
+              image: ghcr.io/nearnodeflash/nnf-container-example:latest
+              command:
               - /bin/sh
               - -c
               - |
@@ -38,14 +40,12 @@ spec:
                 echo "mpiuser:x:1041:1005::/home/mpiuser:/bin/sh" >> /etc/passwd
                 cp /etc/passwd /config/
                 exit 0
-              image: ghcr.io/nearnodeflash/nnf-container-example:latest
-              name: container-mpi-init
               volumeMounts:
                 - name: passwd
                   mountPath: "/config"
           containers:
-            - image: ghcr.io/nearnodeflash/nnf-mfu:latest
-              name: my-container-workflow
+            - name: my-container-workflow
+              image: ghcr.io/nearnodeflash/nnf-mfu:latest
               env:
                 - name: DW_JOB_foo_local_storage
                   value: /mnt/nnf/06020ad9-28d4-451b-ab27-00eda8f8ecb6-0
@@ -57,8 +57,6 @@ spec:
                 - dcmp
                 - "$(DW_JOB_foo_local_storage)/0"
                 - "$(DW_JOB_foo_local_storage)/1"
-                # - /home/mpirun/.bashrc
-                # - /home/mpirun/.profile
               volumeMounts:
               - name: passwd
                 mountPath: "/etc/passwd"

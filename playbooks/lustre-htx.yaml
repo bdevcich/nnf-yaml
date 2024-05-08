@@ -1,0 +1,124 @@
+---
+- name: Setup lustre MGS on htx-lustre
+  hosts: htx-lustre
+  become: true
+  tasks:
+    - name: Mount TOSS ISO for DNF
+      ansible.posix.mount:
+        src: /root/iso/toss-4.6-6-x86_64-dvd1.iso
+        path: /mnt/toss
+        state: ephemeral
+        fstype: auto
+
+    - name: Copy toss repo (with lustre packages)
+      copy:
+        src: toss-upgrade.repo
+        dest: /etc/yum.repos.d
+    
+    - name: Install lustre packages
+      dnf:
+        name:
+          - e2fsprogs
+          - lustre
+          - lustre-debuginfo
+          - lustre-osd-zfs-mount
+          - lustre-tools-llnl
+          - kmod-lustre
+          - kmod-lustre-osd-zfs
+          - zfs
+
+    - name: Create lustre directory
+      file:
+        path: "/lustre/"
+        state: directory
+    
+    - name: Copy lnet config
+      copy:
+        src: lustre/lnet.conf.htx
+        dest: /etc/modprobe.d/lnet.conf
+
+    - name: Start lustre module
+      command: modprobe zfs
+
+    - name: Start lustre module
+      command: modprobe lustre
+    
+    # - name: Reconfigure lnet (unconfigure)
+    #   command: lnetctl lnet unconfigure
+
+    - name: Reconfigure lnet (configure)
+      command: lnetctl lnet configure --all
+
+    - name: Copy lustre autoload config
+      copy:
+        src: lustre/lustre.conf
+        dest: /etc/modules-load.d/lustre.conf
+
+    # - name: Create zpool with mgs file
+    #   command: "zpool create -O canmount=off -o cachefile=none mgspool /dev/lustre/mgs"
+
+    # - name: Create Lustre filesystem on zpool
+    #   command: "mkfs.lustre --backfstype=zfs --mgs mgspool/mgt"
+
+    # - name: Display Lustre filesystem properties
+    #   command: "zfs get all | awk '$2 ~ /lustre/'"
+    #   register: zpool_get_all
+
+    # - name: Display local ZFS properties
+    #   command: "zfs get all -s local"
+    #   register: zpool_get_all_prop
+
+    # - name: Mount Lustre filesystem
+    #   command: "mount -t lustre mgspool/mgt /lustre/mgt"
+
+    # - name: Display Lustre filesystem usage
+    #   command: "df -ht lustre"
+    #   register: df_lustre
+
+    # - name: Display Lustre lctl dl
+    #   command: "lctl dl"
+    #   register: lctl
+
+    # - name: Display processes related to mgs
+    #   command: "ps -ef | awk '/mgs/ && !/awk/'"
+    #   register: processes
+
+    # - name: Display disk usage in human-readable format
+    #   command: "df -H"
+    #   register: df
+
+# MGS
+# zpool create -O canmount=off -o cachefile=none mgspool /dev/lustre/mgs
+# mkfs.lustre --backfstype=zfs --mgs mgspool/mgt
+# mkdir -p /lustre/mgt 
+# mount -t lustre mgspool/mgt /lustre/mgt
+ 
+#  zfs set mountpoint=none mgspool
+#  zfs set mountpoint=/lustre/mgt mgspool/mgt
+
+# # MDS
+# zpool create -O canmount=off -o cachefile=none lustds-mdt0pool  /dev/lustre/mds
+# mkfs.lustre --mdt --fsname lustds --index 0 --mgsnode 10.168.0.46@tcp --backfstype=zfs lustds-mdt0pool/mdt0
+# mkdir -p /lustre/lustds/mdt0
+# mount -t lustre lustds-mdt0pool/mdt0 /lustre/lustds/mdt0
+
+# zfs set mountpoint=none lustds-mdt0pool
+# zfs set mountpoint=/lustre/lustds/mdt0 lustds-mdt0pool/mdt0
+
+# df -ht lustre
+# lctl dl
+
+# # OST
+# zpool create -f -O canmount=off -o cachefile=none lustds-ost0pool  /dev/lustre/oss
+# mkfs.lustre --ost --fsname lustds --index 0 --mgsnode 10.168.0.46@tcp --backfstype=zfs lustds-ost0pool/ost0
+# mkdir -p /lustre/lustds/ost0
+# mount -t lustre lustds-ost0pool/ost0 /lustre/lustds/ost0
+
+# zfs set mountpoint=none lustds-ost0pool
+# zfs set mountpoint=/lustre/lustds/ost0 lustds-ost0pool/ost0
+
+# systemctl enable zfs-import-cache
+# systemctl enable zfs-import-scan
+# systemctl enable zfs-mount
+# systemctl enable zfs-share
+# systemctl enable zfs-zed

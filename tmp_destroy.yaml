@@ -1,0 +1,14 @@
+apiVersion: dataworkflowservices.github.io/v1alpha2
+kind: Workflow
+metadata:
+  name: mpi-gfs2-and-global-destroy
+  namespace: default
+spec:
+  desiredState: Proposal
+  dwDirectives:
+    - '#DW destroy_persistent name=mpi-gfs2-and-global'
+  groupID: 0
+  hurry: false
+  jobID: 1
+  userID: 0
+  wlmID: '1'

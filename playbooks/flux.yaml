@@ -1,0 +1,172 @@
+---
+- name: Install flux on computes + lustre
+  hosts: [htx-computes, htx-lustre]
+  # hosts: [htx-lustre]
+  # hosts: [tx-computes, tx-lustre]
+  remote_user: root
+  tasks:
+    - name: Mount TOSS ISO for DNF
+      ansible.posix.mount:
+        src: /root/iso/toss-4.7-6-x86_64-dvd1.iso
+        # src: /root/iso/toss-4.6-6-x86_64-dvd1.iso
+        # src: /root/iso/toss-4.4-5-x86_64-dvd1.iso
+        path: /mnt/toss
+        state: ephemeral
+        fstype: auto
+    # # This is necessary on texas b/c the computes have this repo enabled even when /mnt/lustre isn't mounted
+    # - name: Disable lustre repo
+    #   copy:
+    #     src: ./flux/lustre.repo
+    #     dest: /etc/yum.repos.d/lustre.repo
+    # TODO: run users.yaml
+    - name: Install Flux Dependencies
+      dnf:
+        name:
+          - python3
+          - patch
+    - name: Install Flux Python Dependencies
+      pip:
+        name: 
+          - jsonschema
+          - kubernetes
+    - name: Install Flux
+      dnf:
+        name:
+          - flux-core
+          - flux-coral2
+          - flux-sched
+          - flux-security
+          - flux-pam
+    - name: Patch flux # necessary with TOSS 4.6.6 and 4.7.6 - from James
+      ansible.posix.patch:
+        src: ./flux/flux-coral2-dws.patch
+        dest: /bin/coral2_dws.py
+    - name: Create flux system config directory
+      file:
+        path: /etc/flux/system/conf.d
+        state: directory
+        mode: 0755
+    - name: Copy flux system config
+      copy:
+        src: ./flux/htx-system.toml
+        dest: /etc/flux/system/conf.d/system.toml
+    # - name: Copy flux system config
+    #   copy:
+    #     src: ./flux/tx-system.toml
+    #     dest: /etc/flux/system/conf.d/system.toml
+    - name: Copy flux IMP config
+      copy:
+        src: ./flux/imp.toml
+        dest: /etc/flux/imp/conf.d/imp.toml
+    - name: Copy flux curve cert
+      copy:
+        src: ./flux/curve.cert
+        dest: /etc/flux/system/
+        mode: 0600
+        owner: flux
+        group: flux
+    - name: Copy flux PAM config
+      copy:
+        src: ./flux/flux.pam
+        dest: /etc/pam.d/flux
+    - name: Copy munge key
+      copy:
+        src: ./flux/munge.key
+        dest: /etc/munge/
+        mode: 0600
+        owner: munge
+        group: munge
+    - name: Restart munge service
+      ansible.builtin.systemd_service:
+        name: munge
+        state: restarted
+        enabled: true
+        daemon_reload: true
+    - name: Restart flux service
+      ansible.builtin.systemd_service:
+        name: flux
+        state: restarted
+        enabled: true
+        daemon_reload: true
+    - name: Verify flux service
+      ansible.builtin.systemd_service:
+        name: flux
+        state: started
+    - name: Stop flux-coral2 service
+      ansible.builtin.systemd_service:
+        name: flux-coral2-dws
+        state: stopped
+        enabled: false
+
+- name: Setup flux rank 0 broker
+  hosts: htx-lustre
+  # hosts: tx-lustre
+  remote_user: root
+  tasks:
+    - name: Add k8s repo
+      copy:
+        src: ./flux/kubernetes.repo
+        dest: /etc/yum.repos.d/kubernetes.repo
+    - name: Install kubectl
+      dnf:
+        name:
+          - kubectl
+    - name: Create kubeconfig contexts directory
+      file:
+        path: /home/flux/.kube/contexts
+        state: directory
+    # ----- htx -------
+    - name: Copy kubeconfig
+      copy:
+        src: ./flux/htx-config
+        dest: /home/flux/.kube/config
+        owner: flux
+        group: flux
+    - name: Create kubeconfig certs directory
+      file:
+        path: /home/flux/.kube/certs
+        state: directory
+        owner: flux
+        group: flux
+    - name: Copy client cert
+      copy:
+        src: ./flux/certs/client-admin.crt
+        dest: /home/flux/.kube/certs
+        owner: flux
+        group: flux
+    - name: Copy client key
+      copy:
+        src: ./flux/certs/client-admin.key
+        dest: /home/flux/.kube/certs
+        owner: flux
+        group: flux
+    # ----- texas -------
+    # - name: Copy kubeconfig
+    #   copy:
+    #     src: ./flux/tx-config.yaml
+    #     dest: /home/flux/.kube/config
+    #     owner: flux
+    #     group: flux
+
+    - name: Ensure .bashrc contains k8s config/contexts
+      ansible.builtin.blockinfile:
+        path: /home/flux/.bashrc
+        block: "{{ lookup('ansible.builtin.file', './flux/bashrc_k8s_context.sh') }}"
+    - name: Copy system test
+      copy:
+        src: ./flux/flux-sys-test.sh
+        dest: /home/flux/
+        owner: flux
+        group: flux
+    - name: Restart flux-coral2 service
+      ansible.builtin.systemd_service:
+        name: flux-coral2-dws
+        state: restarted
+        enabled: true
+        daemon_reload: true
+    - name: Verify flux-coral2 service
+      ansible.builtin.systemd_service:
+        name: flux-coral2-dws
+        state: started
+
+

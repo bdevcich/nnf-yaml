@@ -1,0 +1,68 @@
+---
+- name: Setup lustre MGS on rabbit-compute-2
+  hosts: rabbit-compute-2
+  become: true
+  tasks:
+    - name: Mount TOSS ISO for DNF
+      ansible.posix.mount:
+        src: /root/iso/toss-4.6-6-x86_64-dvd1.iso
+        path: /mnt/toss
+        state: ephemeral
+        fstype: auto
+
+    - name: Copy toss repo (with lustre packages)
+      copy:
+        src: toss-upgrade.repo
+        dest: /etc/yum.repos.d
+        
+    - name: Create lustre directory
+      file:
+        path: "/root/lustre/"
+        state: directory
+
+    - name: Change to lustre directory
+      shell: cd /root/lustre/
+
+    - name: Create mgs file with 1GB size
+      command: "dd if=/dev/zero of=mgs bs=1 count=0 seek=1G"
+
+    - name: Display mgs file size
+      shell: ls -lh mgs
+      register: mgs_file_info
+
+    - name: Create zpool with mgs file
+      command: "zpool create -f -O canmount=off -o cachefile=none mgspool /root/lustre/mgs"
+
+    - name: Display zpool list
+      command: "zpool list"
+      register: zpool_list
+
+    - name: Create Lustre filesystem on zpool
+      command: "mkfs.lustre --backfstype=zfs --mgs mgspool/mgs0"
+
+    # - name: Display Lustre filesystem properties
+    #   command: "zfs get all | awk '$2 ~ /lustre/'"
+    #   register: zpool_get_all
+
+    # - name: Display local ZFS properties
+    #   command: "zfs get all -s local"
+    #   register: zpool_get_all_prop
+
+    - name: Mount Lustre filesystem
+      command: "mount -t lustre mgspool/mgs0 /lustre/mgt"
+
+    # - name: Display Lustre filesystem usage
+    #   command: "df -ht lustre"
+    #   register: df_lustre
+
+    # - name: Display Lustre lctl dl
+    #   command: "lctl dl"
+    #   register: lctl
+
+    # - name: Display processes related to mgs
+    #   command: "ps -ef | awk '/mgs/ && !/awk/'"
+    #   register: processes
+
+    # - name: Display disk usage in human-readable format
+    #   command: "df -H"
+    #   register: df

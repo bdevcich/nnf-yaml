@@ -1,0 +1,86 @@
+---
+- name: Install test tools on computes
+  hosts: htx-computes
+  remote_user: root
+  environment:
+    http_proxy: http://hpeproxy.its.hpecorp.net:80/
+    https_proxy: http://hpeproxy.its.hpecorp.net:443/
+    ftp_proxy: http://hpeproxy.its.hpecorp.net:80/
+    no_proxy: localhost,127.0.0.1,.milp.rdlabs.hpecorp.net,.chf.rdlabs.hpecorp.net,.eag.rdlabs.hpecorp.net
+  vars:
+    user: mpiuser
+    ftzz_dir: /home/mpiuser/ftzz
+    ftzz_image: arti.hpc.amslabs.hpecorp.net/docker-stable-local/cds-diagnostics:2.2.0
+    client_go_dir: /Users/blakedevcich/src/rabbit/nnf-deploy/nnf-dm/daemons/compute/client-go/
+    lib_cpp_dir: /Users/blakedevcich/src/rabbit/nnf-deploy/nnf-dm/daemons/compute/lib-cpp/
+
+  tasks:
+    # - name: Mount TOSS ISO for DNF
+    #   ansible.posix.mount:
+    #     src: /root/iso/toss-4.6-6-x86_64-dvd1.iso
+    #     path: /mnt/toss
+    #     state: ephemeral
+    #     fstype: auto
+    # - name: Install podman
+    #   ansible.builtin.dnf:
+    #     name:
+    #       - podman
+    # - name: Get cds-diagnostics image (for ftzz)
+    #   containers.podman.podman_image:
+    #     name: '{{ ftzz_image }}'
+    # - name: Create ftzz directory
+    #   become: true
+    #   become_user: mpiuser
+    #   ansible.builtin.file:
+    #     path: '{{ ftzz_dir }}'
+    #     state: directory
+    #     mode: '0755'
+    # - name: Run ftzz to generate random files/directories
+    #   become: true
+    #   become_user: mpiuser
+    #   loop:
+    #     - 31013
+    #     - 91093
+    #     - 64920
+    #   containers.podman.podman_container:
+    #     name: ftzz
+    #     image: '{{ ftzz_image }}'
+    #     command: '/tools/ftzz generate -b 5000000000 --files 25 --seed {{ item }} {{ ftzz_dir }}/ftzz-{{ item }}'
+    #     volume:
+    #       - '{{ftzz_dir}}:{{ftzz_dir}}:Z'
+    # - name: Move ftzz to NNF FS
+    #   with_random_choice:
+    #     - 31013
+    #     - 91093
+    #     - 64920
+    #   become: true
+    #   become_user: mpiuser
+    #   ansible.builtin.copy:
+    #     src: '{{ ftzz_dir }}/ftzz-{{ item }}/'
+    #     remote_src: true
+    #     dest: '{{ nnf_dir }}'
+    - name: Build client-go
+      delegate_to: localhost
+      ansible.builtin.command:
+        chdir: '{{ client_go_dir }}'
+        cmd: make linux
+    - name: Install client-go
+      ansible.builtin.copy:
+        src: '{{ client_go_dir }}/client-go'
+        dest: /usr/local/bin/dm-client-go
+        mode: '0755'
+    # - name: Build lib-cpp
+    #   delegate_to: localhost
+    #   ansible.builtin.command:
+    #     chdir: '{{ lib_cpp_dir }}'
+    #     cmd: make
+    # - name: Build lib-cpp example
+    #   delegate_to: localhost
+    #   ansible.builtin.command:
+    #     chdir: '{{ lib_cpp_dir }}/example'
+    #     cmd: make
+    # - name: Install lib-cpp example
+    #   ansible.builtin.copy:
+    #     src: '{{ lib_cpp_dir }}/example/cmake/build/client-cpp-example'
+    #     dest: /usr/local/bin/dm-client-cpp-example
+    #     mode: '0755'

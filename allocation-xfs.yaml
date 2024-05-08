@@ -1,6 +1,15 @@
-allocationSets:
-  - allocationSize: 50000000000
-    label: xfs
-    storage:
-      - allocationCount: 1
-        name: kind-worker2
+spec:
+  allocationSets:
+    - allocationSize: 50000000000
+      label: xfs
+      storage:
+        # - name: kind-worker2
+        #   allocationCount: 3
+        # - name: kind-worker3
+        #   allocationCount: 1
+        # - name: rabbit-node-0
+        # allocationCount: 2
+        #- name: rabbit-node-1
+        #  allocationCount: 2
+        - name: rabbit-node-2
+          allocationCount: 2

@@ -1,0 +1,16 @@
+apiVersion: dataworkflowservices.github.io/v1alpha1
+kind: Workflow
+metadata:
+  name: blake-container-mpi-global
+  namespace: default
+spec:
+  desiredState: 'Proposal'
+  dwDirectives:
+    - '#DW jobdw name=blake-gfs2-mpi type=gfs2 capacity=50GB'
+    - "#DW container name=blake-container-mpi-global profile=example-mpi \
+      DW_JOB_foo_local_storage=blake-gfs2-mpi \
+      DW_GLOBAL_foo_global_lustre=/lus/global"
+  wlmID: '5f239bd8-30db-450b-8c2c-a1a7c8631a1a'
+  jobID: 900002
+  userID: 1050
+  groupID: 1051

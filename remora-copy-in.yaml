@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nnf-int-test-copy-in
+  labels:
+    nnf-int-test: ''
+    copy-in: ''
+spec:
+  nodeName: rabbit-node-1
+  containers:
+    - name: copy-in
+      #image: ghcr.io/nearnodeflash/nnf-remora:0.0.1
+      image: devcich/nnf-remorax:0.0.1
+      imagePullPolicy: Always
+      command:
+        - /bin/bash
+      args:
+        - -c
+      # command:
+      #   # - '/copy-in.sh'
+      #   - sleep 3
+      # args:
+      #   - '/lus/global'
+      #   - 'testuser'
+      #   - '1050'
+      #   - '1051'
+      #   - 'test.in'
+      resources:
+        limits:
+          memory: '128Mi'
+          cpu: '500m'

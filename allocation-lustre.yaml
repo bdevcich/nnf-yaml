@@ -3,14 +3,16 @@ spec:
     - allocationSize: 50000000000
       label: ost
       storage:
-        - allocationCount: 1
-          name: kind-worker2
-        - allocationCount: 1
-          name: kind-worker3
+        - allocationCount: 2
+          # name: kind-worker2
+          # name: rabbit-node-1
+          name: rabbit-node-2
     - allocationSize: 50000000000
-      label: mgtmdt
+      # Use mdt when using externalMgs
+      label: mdt
+      #label: mgtmdt
       storage:
-        - allocationCount: 1
-          name: kind-worker2
-        - allocationCount: 1
-          name: kind-worker3
+        - allocationCount: 2
+          # name: kind-worker2
+          # name: rabbit-node-1
+          name: rabbit-node-2

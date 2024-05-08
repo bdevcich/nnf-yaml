@@ -1,0 +1,149 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: launcher-standalone
+  namespace: default
+spec:
+  containers:
+  - command:
+    - /bin/bash
+    - -c
+    - sleep 10000
+    env:
+    - name: DW_JOB_foo_local_storage
+      value: /mnt/nnf/e754715b-9d92-468c-9e75-644823da3069-0
+    - name: NNF_CONTAINER_SUBDOMAIN
+      value: gfs2-with-mpi-containers-worker
+    - name: NNF_CONTAINER_DOMAIN
+      value: default.svc.cluster.local
+    - name: NNF_CONTAINER_HOSTNAMES
+      value: gfs2-with-mpi-containers-launcher gfs2-with-mpi-containers-worker-0
+    - name: K_MPI_JOB_ROLE
+      value: launcher
+    - name: OMPI_MCA_orte_keep_fqdn_hostnames
+      value: "true"
+    - name: OMPI_MCA_orte_default_hostfile
+      value: /etc/mpi/hostfile
+    - name: OMPI_MCA_plm_rsh_args
+      value: -o ConnectionAttempts=10
+    - name: OMPI_MCA_orte_set_default_slots
+      value: "1"
+    - name: NVIDIA_VISIBLE_DEVICES
+    - name: NVIDIA_DRIVER_CAPABILITIES
+    image: ghcr.io/nearnodeflash/nnf-mfu:0.0.1
+    imagePullPolicy: IfNotPresent
+    name: example-mpi
+    resources: {}
+    securityContext:
+      allowPrivilegeEscalation: false
+      runAsGroup: 1051
+      runAsNonRoot: true
+      runAsUser: 1050
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /lus/global
+      name: blake-lustre-global
+    - mountPath: /etc/passwd
+      name: passwd
+      subPath: passwd
+    - mountPath: /home/mpiuser/.ssh
+      name: kube-api-access-8m6q5
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  hostname: gfs2-with-mpi-containers-launcher
+  initContainers:
+  - command:
+    - /bin/bash
+    - -c
+    - |
+      mkdir -p /lus/global
+      chown 1050:1051 /lus/global
+    image: ghcr.io/nearnodeflash/nnf-mfu:0.0.1
+    imagePullPolicy: IfNotPresent
+    name: init-test-perms
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /lus/global
+      name: blake-lustre-global
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-8m6q5
+      readOnly: true
+  - command:
+    - /bin/sh
+    - -c
+    - |
+      # tie the UID/GID to the user
+      sed -i '/^mpiuser/d' /etc/passwd
+      echo "mpiuser:x:1050:1051::/home/mpiuser:/bin/sh" >> /etc/passwd
+      cp /etc/passwd /config/
+      exit 0
+    image: ghcr.io/nearnodeflash/nnf-mfu:0.0.1
+    imagePullPolicy: IfNotPresent
+    name: mpi-init-passwd
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /config
+      name: passwd
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-8m6q5
+      readOnly: true
+  nodeName: rabbit-node-1
+  nodeSelector:
+    kubernetes.io/hostname: rabbit-node-1
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Never
+  schedulerName: default-scheduler
+  # securityContext:
+    # fsGroup: 1051
+  serviceAccount: default
+  serviceAccountName: default
+  subdomain: gfs2-with-mpi-containers-worker
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoSchedule
+    key: cray.nnf.node
+    operator: Equal
+    value: "true"
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: blake-lustre-global
+    persistentVolumeClaim:
+      claimName: blake-lustre-global-default-readwritemany-pvc
+  - emptyDir: {}
+    name: passwd
+  - hostPath:
+      path: /mnt/nnf/e754715b-9d92-468c-9e75-644823da3069-0
+      type: Directory
+    name: foo-local-storage
+  - name: kube-api-access-8m6q5
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace

@@ -1,0 +1,14 @@
+apiVersion: dataworkflowservices.github.io/v1alpha2
+kind: Workflow
+metadata:
+  name: blake-xfs-copy-in
+  namespace: default
+spec:
+  desiredState: 'Proposal'
+  dwDirectives:
+    - '#DW jobdw type=xfs capacity=50GB name=blake-xfs'
+    - '#DW copy_in source=/lus/global/user/test.in destination=$DW_JOB_blake-xfs/'
+  wlmID: '5f239bd8-30db-450b-8c2c-a1a7c8631a1a'
+  jobID: 900003
+  userID: 1010
+  groupID: 1010
