@@ -19,28 +19,28 @@
     #     src: ./flux/lustre.repo
     #     dest: /etc/yum.repos.d/lustre.repo
     # TODO: run users.yaml
-    - name: Install Flux Dependencies
-      dnf:
-        name:
-          - python3
-          - patch
-    - name: Install Flux Python Dependencies
-      pip:
-        name: 
-          - jsonschema
-          - kubernetes
-    - name: Install Flux
-      dnf:
-        name:
-          - flux-core
-          - flux-coral2
-          - flux-sched
-          - flux-security
-          - flux-pam
-    - name: Patch flux # necessary with TOSS 4.6.6 and 4.7.6 - from James
-      ansible.posix.patch:
-        src: ./flux/flux-coral2-dws.patch
-        dest: /bin/coral2_dws.py
+    # - name: Install Flux Dependencies
+    #   dnf:
+    #     name:
+    #       - python3
+    #       - patch
+    # - name: Install Flux Python Dependencies
+    #   pip:
+    #     name: 
+    #       - jsonschema
+    #       - kubernetes
+    # - name: Install Flux
+    #   dnf:
+    #     name:
+    #       - flux-core
+    #       - flux-coral2
+    #       - flux-sched
+    #       - flux-security
+    #       - flux-pam
+    # - name: Patch flux # necessary with TOSS 4.6.6 and 4.7.6 - from James
+    #   ansible.posix.patch:
+    #     src: ./flux/flux-coral2-dws.patch
+    #     dest: /bin/coral2_dws.py
     - name: Create flux system config directory
       file:
         path: /etc/flux/system/conf.d

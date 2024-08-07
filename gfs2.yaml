@@ -1,13 +1,13 @@
 apiVersion: dataworkflowservices.github.io/v1alpha2
 kind: Workflow
 metadata:
-  name: blake-gfs2
+  name: blake
   namespace: default
 spec:
   desiredState: 'Proposal'
   dwDirectives:
-    - '#DW jobdw type=gfs2 capacity=50GB name=blake-gfs2'
+    - '#DW jobdw type=gfs2 capacity=500GB name=blake'
   wlmID: '5f239bd8-30db-450b-8c2c-a1a7c8631a1a'
   jobID: 900001
-  userID: 1050
-  groupID: 1051
+  userID: 1060
+  groupID: 100

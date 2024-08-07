@@ -1,0 +1,8 @@
+apiVersion: nnf.cray.hpe.com/v1alpha1
+kind: NnfDataMovementProfile
+metadata:
+  name: bad
+  namespace: nnf-system
+data:
+  slots: 100
+  maxSlots: 8

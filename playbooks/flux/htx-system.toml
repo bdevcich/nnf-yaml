@@ -65,10 +65,9 @@ plugins = [
   { load = "dws-jobtap.so" }
 ]
 
-
-# Jobs submitted without duration get a very short one
+# Default job time limit
 [policy.jobspec.defaults.system]
-duration = "1m"
+duration = "30m"
 
 # Jobs that explicitly request more than the following limits are rejected
 [policy.limits]
